@@ -99,23 +99,23 @@
 
           <fieldset class="deemp-fieldset">
             <legend>Summary</legend>
-            <p id="summary-inner"></p>
+            <p id="summary-inner">None loaded.</p>
           </fieldset>
 
           <fieldset class="deemp-fieldset">
-            <legend>Debugging</legend>
-            <small>Search for and open folder name: scrollToSearch("Some Title"):</small><br/>
+            <legend>Testing</legend>
+            <small>Search and open by folder name: scrollToSearch("Some Title"):</small><br/>
             <input type="text" id="by-search" value="II">
-            <button onclick='scrollToSearch($("#by-search").val())'>Go</button>
+            <button onclick='scrollToSearch($("#by-search").val())'>Run function</button>
             <br><br>
 
-            <small>Anchor to open unique Id folder: scrollToUniqueId("unique....dat"):</small><br/>
+            <small>Open by unique Id (Id is in li[data-uid] or folder contents): scrollToUniqueId("unique....dat"):</small><br/>
             <input type="text" id="by-uid" value="uniqueid1562162987.2096.dat">
-            <button onclick='scrollToUniqueId($("#by-uid").val())'>Go</button>
+            <button onclick='scrollToUniqueId($("#by-uid").val())'>Run function</button>
             <br/><br/>
 
             <p>
-              <small>Anchor with a tag:
+              <small>Search or open by unique Id with &#10094;a&#10095; tags:<br/>
               The story is about a man who started understanding the concept of <a href="javascript:void(0)" onclick='scrollToUniqueId("uniqueid1562162987.2094.dat");'>number 1</a>.
               </small>
             </p>
