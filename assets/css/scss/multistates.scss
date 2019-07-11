@@ -1,0 +1,98 @@
+/* Page layout - Configurable section */
+
+
+/* Style */
+.multistates {
+  cursor: pointer;
+  vertical-align: top;
+  display:inline-block;
+  // margin-top: 0.5ch;
+
+  /* Eliminates native behavior that makes the states look like selectable text */
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.multistates * {
+  vertical-align: top;
+}
+.p1, .p2, .p3, .p4 {
+  index: 99;
+}
+
+/* Function */
+@mixin primary($which) {
+  // #{$which}:not(.on):not(.checked)::before {
+  //   content: "\00a0\00a0\00a0";
+  // }
+
+  #{$which}.parentheses::before {
+    content: "(\00a0\00a0\00a0)";
+  }
+  #{$which}.square-brackets::before {
+    content: "[\00a0\00a0\00a0]";
+  }
+  #{$which}.parentheses.checked::before {
+    content: "(✓)";
+  }
+  #{$which}.square-brackets.checked::before {
+    content: "[✓]";
+  }
+  #{$which}:not(.parentheses):not(.square-brackets).checked::before {
+    content: "\00a0✓\00a0";
+  }
+} /* mixin:primary */
+
+
+.multistates {
+  z-index:2;
+
+  .p1, .p2, .p3, .p4 {
+    display: inline-block;
+    width: 2.5ch;
+    height: 2ch;
+    cursor: pointer;
+  }
+  .p1 {
+    border-left: 1px solid rgba(0,0,0, .15);
+  }
+  .p4 {
+    border-right: 1px solid rgba(0,0,0, .15);
+    padding-right: 5px;
+    width: 3ch;
+  }
+
+  @include primary(".p1");
+  @include primary(".p2");
+  @include primary(".p3");
+  @include primary(".p4");
+}
+
+
+@-webkit-keyframes ministateAnimate {
+  0% {
+      background-color:	#B2EC5D;
+      opacity:1;
+  }
+  22% {
+      background-color: #7CFC00;
+  }
+  50% {
+      background-color: #66FF00;
+  }
+  77% {
+      background-color: #7CFC00;
+  }
+  100% {
+      background-color: #B2EC5D;
+  }
+}
+
+.ministateAnimate {
+  -webkit-animation-name: ministateAnimate;
+  -webkit-animation-duration: 200ms;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease-in-out;
+}

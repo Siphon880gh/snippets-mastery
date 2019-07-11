@@ -1,0 +1,14 @@
+{
+  "name": "snippets-mastery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build-sass": "node-sass css/scss --output css",
+    "watch-compass": "compass watch ./",
+    "livereload": "livereload .",
+    "watch": "npm run watch-compass & npm run livereload"
+  },
+  "author": "",
+  "license": "ISC"
+}

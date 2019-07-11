@@ -1,0 +1,105 @@
+/* Core */
+.clickable {
+    cursor: pointer;
+}
+.accordion {
+    cursor: pointer;
+}
+.name:not(.minus)::before {
+    content: "\002B";
+}
+.thermo .fas:not(.active) {
+    display: none;
+}
+
+/* Color themes */
+.tooltip {
+    opacity: 1 !important;
+}
+.tooltip-inner {
+    font-size: 12px;
+    background:lightgreen;
+    border: 1px solid #737373;
+    text-align: left;
+}
+.gotos-click {
+    color: green;
+}
+.fa-info:hover, .fa-book-reader:hover, .gotos-click:hover {
+    color: darkgreen;
+}
+.thermo *:nth-child(1) {
+    color: lightgray;
+}
+.thermo *:nth-child(2) {
+    color: darkgreen;
+}
+.thermo *:nth-child(3) {
+    
+    color: orange;
+}
+.thermo *:nth-child(4) {
+    color: red;
+}
+
+/* Tweaking design */
+.fa-info, .fa-book-reader, .gotos-click, .thermo, .multistates-wrapper {
+    margin-left:1ch;
+}
+.thermo {
+    border-left: .1rem solid lightgray; 
+    padding-left:6px; 
+    height: 1.6ch;
+    font-size: 10px;
+    vertical-align: top;
+}
+.multistates-wrapper {
+    margin-left: 6px !important;
+}
+.multistates {
+    height: .9rem;
+    padding-left: 3px !important;
+    padding-right: 0 !important;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+
+    .p1, .p2, .p3, .p4 {
+        font-size: .9rem !important;
+    } 
+}
+.multistates .p1, .multistates .p4 {
+    border-left: 0 !important;
+    border-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Fieldset layout */
+fieldset {
+    display: block;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border-width: 2px;
+    border-style: groove;
+    border-color: threedface;
+    border-image: initial;
+
+   legend {
+      display: inline-block !important;
+      padding-inline-start: 4px;
+      padding-inline-end: 4px;
+      border-width: initial;
+      border-style: none;
+      border-color: initial;
+      border-image: initial;
+      border-bottom: 0 !important;
+      width: auto !important;
+      margin-bottom: 0;
+      /* min-width: 0 !important; */
+    }
+}
