@@ -296,6 +296,7 @@ function readDb() {
             $thermo.find(".active").removeClass("active");
             $thermo.find(".fas").eq(dat.data.thermo).addClass("active");
         
+            // setStates
             var states = dat.data.multistates;
             var $states = $row.find(">.contain .data-wrapper");
             $states.attr("data-states", states);

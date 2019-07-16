@@ -1,19 +1,80 @@
+var Multistates = {
+    holdingShift: undefined,
+    getStates: ($el) => {
+        if(typeof $el==="string") {
+            console.error("You must pass a jQuery dom.");
+            return false;
+        }
+
+        if(!$el.hasClass("data-wrapper")) {
+            $el = $el.find(".data-wrapper").first();
+            if($el.length===0) {
+                console.error("The descendent or itself is not a multistate component.");
+                return false;
+            }
+        }
+
+        var $data = $el;
+        return $data.attr("data-states");
+    },
+    setStates: ($el, states) => {
+        if(typeof $el==="string") {
+            console.error("You must pass a jQuery dom (first parameter).");
+            return false;
+
+        }
+
+        if(typeof states!=="string" || states.length!=4) {
+            console.error("You must pass a multistate string (second parameter). E.g. cccc");
+            return false;
+        }
+
+        if(!$el.hasClass("data-wrapper")) {
+            $el = $el.find(".data-wrapper").first();
+            if($el.length===0) {
+                console.error("The descendent or itself is not a multistate component.");
+                return false;
+            }
+        }
+
+        var $data = $el,
+            $p = $data.find(".p1, .p2, .p3, .p4");
+
+        $data.attr("data-states", states);
+        $p.removeClass("square-brackets parentheses checked");
+
+       // Update states
+       for(var i=0; i<4; i++) { 
+          // Character?
+          if(states[i].toLowerCase()==="s") 
+             $p.eq(i).addClass("square-brackets"); 
+          else if(states[i].toLowerCase()==="p") 
+            $p.eq(i).addClass("parentheses"); 
+    
+          // Checked?
+          if(states[i]===states[i].toUpperCase()) 
+            $p.eq(i).addClass("checked"); 
+       } // for
+
+    } // setStates
+} // Multistates
+
 
 $.fn.multistates = function(options) {
     var self = options;
 
-    if(typeof window.multistates_holdingShift==="undefined") {
+    if(typeof Multistates.holdingShift==="undefined") {
         // alert("ran once");
-        window.multistates_holdingShift = false;
+        Multistates.holdingShift = false;
         
         $(document).keydown(function (e) {
             if (e.keyCode == 16) {
-                window.multistates_holdingShift = true;
+                Multistates.holdingShift = true;
             }
         });
         $(document).keyup(function (e) {
             if (e.keyCode == 16) {
-                window.multistates_holdingShift = false;
+                Multistates.holdingShift = false;
             }
     });
     }
@@ -101,7 +162,7 @@ $.fn.multistates = function(options) {
             if( !isLeftClick ) return false;
 
             // If shift clicking, then treat as ministate switching
-            if(window.multistates_holdingShift) {
+            if(Multistates.holdingShift) {
                 checkDelegator(event);
 
                 if(typeof callback!=="undefined") {
