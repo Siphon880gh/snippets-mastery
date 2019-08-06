@@ -110,7 +110,7 @@
       if(desc && desc.length) {
         var $info = $(`<span class="fas fa-info"></span>`);
         $info.attr("data-toggle", "tooltip");
-        $info.attr("title", `<u>${titleOverridden || item.current}</u>:<br/>desc`);
+        $info.attr("title", `<u>${titleOverridden || item.current}</u>:<br/>${desc}`);
         $info.tooltip({placement:"bottom", html:true, delay:{show:50}});
         $contain.append($info);
       }

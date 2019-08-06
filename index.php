@@ -37,14 +37,14 @@
         }
         $dirs = rglob("$DIR_SNIPPETS+?*");
         $lookup_metas = [];
-        $lookup_uniqueids = [];
+        $lookup_saveids = [];
 
 
         function map_tp_dec($path) { // trailing parsed (removed preceding snippet/ and may remove ending slash /) and decorated object
           global $DIR_SNIPPETS;
           global $DEFAULT_THUMBNAIL_SIZE;
           global $lookup_metas;
-          global $lookup_uniqueids;
+          global $lookup_saveids;
           
           $path_tp = substr($path, strlen($DIR_SNIPPETS)+1); // trailing parsed
 
@@ -64,15 +64,15 @@
             $lookup_metas[$path] = @json_decode(file_get_contents($path . "+meta.json"));
           }
 
-          $uniqueid_globs = glob($path . "+uniqueid*.dat");
-          if(count($uniqueid_globs)===0) {
+          $saveid_globs = glob($path . "+saveid*.dat");
+          if(count($saveid_globs)===0) {
             $microtime = microtime(true);
-            file_put_contents($path . "+uniqueid" . $microtime . ".dat", "");
-            $uniqueid_glob = $microtime . ".dat";
+            file_put_contents($path . "+saveid" . $microtime . ".dat", "");
+            $saveid_glob = $microtime . ".dat";
           } else {
-            $uniqueid_glob = basename($uniqueid_globs[0]);
+            $saveid_glob = basename($saveid_globs[0]);
           }
-          $lookup_uniqueids[$path] = $uniqueid_glob;
+          $lookup_saveids[$path] = $saveid_glob;
 
           // die();
           
@@ -83,7 +83,7 @@
         echo "var folders = " . json_encode($dirs) . ",";
         echo "ori = folders, ";
         echo "lookupMetas = " . json_encode($lookup_metas) . ";";
-        echo "lookupUniqueIds = " . json_encode($lookup_uniqueids) . ";";
+        echo "lookupUniqueIds = " . json_encode($lookup_saveids) . ";";
       ?>
     </script>
 
@@ -110,13 +110,13 @@
             <br><br>
 
             <small>Open by unique Id (Id is in li[data-uid] or folder contents): scrollToUniqueId("unique....dat"):</small><br/>
-            <input type="text" id="by-uid" value="uniqueid1562162987.2096.dat">
+            <input type="text" id="by-uid" value="saveid1562162987.2096.dat">
             <button onclick='scrollToUniqueId($("#by-uid").val())'>Run function</button>
             <br/><br/>
 
             <p>
               <small>Search or open by unique Id with &#10094;a&#10095; tags:<br/>
-              The story is about a man who started understanding the concept of <a href="javascript:void(0)" onclick='scrollToUniqueId("uniqueid1562162987.2094.dat");'>number 1</a>.
+              The story is about a man who started understanding the concept of <a href="javascript:void(0)" onclick='scrollToUniqueId("saveid1562162987.2094.dat");'>number 1</a>.
               </small>
             </p>
 
