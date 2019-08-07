@@ -110,7 +110,31 @@
       if(desc && desc.length) {
         var $info = $(`<span class="fas fa-info"></span>`);
         $info.attr("data-toggle", "tooltip");
-        $info.attr("title", `<u>${titleOverridden || item.current}</u>:<br/>${desc}`);
+        $info.attr("data-trigger", "click");
+        $dom = $(`<div>${desc}</div>`);
+        var $imgs = $dom.find("img");
+        var $a = $dom.find("a");
+
+        $imgs.each( (i, el)=> {
+          var $img = $(el);
+          var src = $img.attr("src");
+          if(src.indexOf("./")==0) {
+            src=item.path+src.substr(2);
+            $img.attr("src", src);
+          }
+        }); // imgs
+
+        $a.each( (i, el)=> {
+          var $a = $(el);
+          var href = $a.attr("href");
+          if(href.indexOf("./")==0) {
+            href=item.path+href.substr(2);
+            $a.attr("href", href);
+          }
+        });
+
+        // debugger;
+        $info.attr("title", `<u>${titleOverridden || item.current}</u>:<br/>${$dom.html()}`);
         $info.tooltip({placement:"bottom", html:true, delay:{show:50}});
         $contain.append($info);
       }
@@ -245,7 +269,15 @@
   });
   
   setTimeout(()=> {
-    readDb();
+    readDb(); // for thermometer and multistates
+
+    //close tooltip if clicked outside
+    $('body').on('click', function (e) {
+      var $el = $(e.target);
+        if ($el.data('toggle') !== 'tooltip' && $el.closest(".tooltip").length === 0) {
+        $(".tooltip-inner").closest(".tooltip").prev().click();
+        }
+    });
   }, 100)
   });
   

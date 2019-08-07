@@ -31,45 +31,52 @@
   background: lightgreen;
   border: 1px solid #737373;
   text-align: left;
+  max-width: 80% !important;
+  max-height: 80% !important;
+  overflow: scroll;
+}
+/* line 27, scss/index.scss */
+.tooltip-inner img {
+  width: 100%;
 }
 
-/* line 25, scss/index.scss */
+/* line 31, scss/index.scss */
 .gotos-click {
   color: green;
 }
 
-/* line 28, scss/index.scss */
+/* line 34, scss/index.scss */
 .fa-info:hover, .fa-book-reader:hover, .gotos-click:hover {
   color: darkgreen;
 }
 
-/* line 31, scss/index.scss */
+/* line 37, scss/index.scss */
 .thermo *:nth-child(1) {
   color: lightgray;
 }
 
-/* line 34, scss/index.scss */
+/* line 40, scss/index.scss */
 .thermo *:nth-child(2) {
   color: darkgreen;
 }
 
-/* line 37, scss/index.scss */
+/* line 43, scss/index.scss */
 .thermo *:nth-child(3) {
   color: orange;
 }
 
-/* line 41, scss/index.scss */
+/* line 47, scss/index.scss */
 .thermo *:nth-child(4) {
   color: red;
 }
 
 /* Tweaking design */
-/* line 46, scss/index.scss */
+/* line 52, scss/index.scss */
 .fa-info, .fa-book-reader, .gotos-click, .thermo, .multistates-wrapper {
   margin-left: 1ch;
 }
 
-/* line 49, scss/index.scss */
+/* line 55, scss/index.scss */
 .thermo {
   border-left: .1rem solid lightgray;
   padding-left: 6px;
@@ -78,12 +85,12 @@
   vertical-align: top;
 }
 
-/* line 56, scss/index.scss */
+/* line 62, scss/index.scss */
 .multistates-wrapper {
   margin-left: 6px !important;
 }
 
-/* line 59, scss/index.scss */
+/* line 65, scss/index.scss */
 .multistates {
   height: .9rem;
   padding-left: 3px !important;
@@ -91,12 +98,12 @@
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
 }
-/* line 66, scss/index.scss */
+/* line 72, scss/index.scss */
 .multistates .p1, .multistates .p2, .multistates .p3, .multistates .p4 {
   font-size: .9rem !important;
 }
 
-/* line 70, scss/index.scss */
+/* line 76, scss/index.scss */
 .multistates .p1, .multistates .p4 {
   border-left: 0 !important;
   border-right: 0 !important;
@@ -105,7 +112,7 @@
 }
 
 /* Fieldset layout */
-/* line 78, scss/index.scss */
+/* line 84, scss/index.scss */
 fieldset {
   display: block;
   margin-inline-start: 2px;
@@ -120,7 +127,7 @@ fieldset {
   border-color: threedface;
   border-image: initial;
 }
-/* line 92, scss/index.scss */
+/* line 98, scss/index.scss */
 fieldset legend {
   display: inline-block !important;
   padding-inline-start: 4px;

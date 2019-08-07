@@ -12,7 +12,12 @@ You can create nested folders. You can make mini information websites and becaus
 
 You can create this optional file inside a folder that will dictate other properties of how a folder name is interpreted by the tool. You can override the folder name, instead of relying on the folder name, with the field _titleOverridden_.
 
-You can add a short description of a folder or concept by adding a _desc_ field. This tool will display descriptions with an Info icon on the folder line that the user can move the mouse over for a tooltip popup.
+You can add a short description of a folder or concept by adding a _desc_ field. This tool will display descriptions with an Info icon on the folder line that the user can click for a tooltip popup. Hovering does not work intentionally because there may be more information in the tooltip if you choose.
+
+A more advanced description has HTML as well so it can support hyperlink and pictures. The src and href can be relative to the snippet it is on.  Start the link with a "./" to do relative path to the snippet folder. For example:
+```
+"desc": "<b>Description can support HTML or plain text. Here's a picture using relative path from the current snippet:</b><center><img src='./img/placeholder.png'/></center><p>And here are links using both relative paths and absolute paths</p><ul><li><a target='_blank' href='./index.php'>Snippets index.php</a></li><li><a target='_blank' href='http://google.com/'>Google</li></ul>",
+```
 
 There is a summary section of the tool that populates with summary when you click the Summary icon on a folder line. This summary can support html and allows you to jump to other concepts with functions such as scrollToSearch("Some Title") or scrollToUniqueId("unique....dat"). The unique id dat file is generated the first time the tool reads your folders or any new folders and allows you to jump to that specific concept by that unique id, in the case that your folders or concepts share similar titles so jumping to a folder by the title name is not precise enough. Use the _summary_ field which is an array entry that will concatenate into one big text in the tool. The reason for it being an array is because JSON files are not friendly with newlines and it'll make your text easier to manage inside a JSON file.
 
@@ -21,14 +26,14 @@ Example code of jumping to a folder or concept line:
 <a href=\"javascript:void(0)\" onclick=\"scrollToSearch('I overridden')\">I overridden</a>"
 ```
 
-The most important field is the _goto_ field which allows opening of many links when clicking the chalkboard icon at a folder or concept line. This is an array entry. Start an entry with "./" if you are opening a file inside the folder, such as "./README.md" or "./more-info.html." Like a normal server, "./" or "." is sufficient to open index.html files. You can also connect to external URLs.
+The most important field is the _goto_ field which allows opening of many links when clicking the chalkboard icon at a folder or concept line. This is an array entry. Start an entry with "./" if you are opening a file inside the folder, such as "./README.md" or "./more-info.html." Like a normal server, "./" is sufficient to open index.html or index.php files. You can also connect to external URLs.
 
 ## +meta.json Example
 
 ```
 {
     "titleOverridden": "I overridden",
-    "desc": "Description here",
+    "desc": "HTML or text description here",
     "summary": ["<b>This is <u>text</u>.</b> It is in the json file as an array of strings. ",
                 "And you can jump to a text containing title ",
                 "<a href=\"javascript:void(0)\" onclick=\"scrollToSearch('I overridden')\">I overridden</a>"
