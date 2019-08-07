@@ -26,7 +26,7 @@ Example code of jumping to a folder or concept line:
 <a href=\"javascript:void(0)\" onclick=\"scrollToSearch('I overridden')\">I overridden</a>"
 ```
 
-The most important field is the _goto_ field which allows opening of many links when clicking the chalkboard icon at a folder or concept line. This is an array entry. Start an entry with "./" if you are opening a file inside the folder, such as "./README.md" or "./more-info.html." Like a normal server, "./" is sufficient to open index.html or index.php files. You can also connect to external URLs.
+The most important field is the _gotos_ field which allows opening of many links when clicking the chalkboard icon at a folder or concept line. This is an array entry. Start an entry with "./" if you are opening a file inside the folder, such as "./README.md" or "./more-info.html." Like a normal server, "./" is sufficient to open index.html or index.php files. You can also connect to external URLs.
 
 ## +meta.json Example
 
