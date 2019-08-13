@@ -100,7 +100,7 @@
     
     if(lookupMetas[item.path]) {
       // Extract property from metas. If property not defined at +meta.json, then it'll be value undefined
-      var {summary, titleOverridden, desc, gotos} = lookupMetas[item.path];
+      var {summary, summaryFile, titleOverridden, desc, gotos} = lookupMetas[item.path];
       // debugger;
   
       if(titleOverridden && titleOverridden.length) { 
@@ -139,16 +139,60 @@
         $contain.append($info);
       }
 
+      var summaryText = "",
+          summaryFileText = "";
+
+      // Prepare summary text if exists
       if(summary && summary.length) {
-        var summary = encodeURI(summary.join(""));
-        $summary = $(`<span class="fas fa-book-reader" data-summary="${summary}"></span>`);
+        if(Array.isArray(summary))
+          summaryText = encodeURI(summary.join("<br/>"));
+        else
+          summaryText = summary;
+
+        // alert(summaryText);
+      }
+
+      // Get and prepare summary file text if exists, then render
+      if(summaryFile && summaryFile.length) {
+        var url = summaryFile;
+        if(url.length && url[0]===".") {
+          var path = $meta.attr("data-path");
+          url = path + url;
+        }
+        console.log($contain)
+        $.ajax( {
+          url: url,
+          success: function(summaryFileContent) {
+            var $contain = this;
+            summaryFileContent = summaryFileContent.replace(/\n/g, "<br>").replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+            summaryFinalText = (summaryText && summaryText.length)?`${summaryText}<br/>${summaryFileContent}`:summaryFileContent;
+            createSummaryIconAndContents(summaryFinalText, $contain, true);
+          }.bind($contain),
+          error: function(error) {
+            var $contain = this;
+            if(summaryText && summaryText.length) {
+              createSummaryIconAndContents(summaryText, $contain, true);
+            }
+          }.bind($contain) // fail
+        })
+
+      // Render summary text if summary file text does not exist and summary text does exist
+      } else if(summaryText && summaryText.length) {
+        createSummaryIconAndContents(summaryText, $contain, false);
+      }
+
+      function createSummaryIconAndContents(text, $contain, ajaxed) {
+        var $summary = $(`<span class="fas fa-book-reader" data-summary="${text}"></span>`);
         $summary.on("click", (event)=> {
           var $this = $(event.target);
           var summary = $this.attr("data-summary");
           summary = decodeURI(summary);
           $("#summary-inner").html(summary);
         });
-        $contain.append($summary);
+        if(ajaxed)
+          $contain.prepend($summary);
+        else
+          $contain.append($summary);
       }
     
       if(gotos && gotos.length) {

@@ -34,10 +34,11 @@ The most important field is the _gotos_ field which allows opening of many links
 {
     "titleOverridden": "I overridden",
     "desc": "HTML or text description here",
-    "summary": ["<b>This is <u>text</u>.</b> It is in the json file as an array of strings. ",
+    "summary": ["<b>This is <u>text</u>.</b> It is in the json file as an array of strings that will be will separated as <br> lines when rendered. ",
                 "And you can jump to a text containing title ",
                 "<a href=\"javascript:void(0)\" onclick=\"scrollToSearch('I overridden')\">I overridden</a>"
                ],
+    "summaryFile": "./test.txt",
     "gotos": [
         ".",
         "./readme.md",
@@ -45,6 +46,21 @@ The most important field is the _gotos_ field which allows opening of many links
     ]
 }
 ```
+
+## Referring to other concepts
+
+You can jump to different concepts from a summary.
+```
+"<a href=\"javascript:void(0)\" onclick=\"scrollToSearch('I overridden')\">I overridden</a>"
+```
+
+## Summary formats
+
+Summary can be typed as an array of strings like the above example in +meta.json. However, it can simply be a string. Or you can have the summary read from a file. If you provide both the array/string and the file path, then it will read the array/string then the file contents.
+```
+"summary": "one line doesn't require an array"
+```
+
 
 # The Tool
 
