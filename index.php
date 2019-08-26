@@ -92,7 +92,13 @@
 
 </head>
     <body>
+
+      <div style="position:absolute; top:0; right:5px;">
+      <a href="https://github.com/Siphon880gh/snippets-mastery#readme" target="_blank"><span class="fa fa-question"></span></a>
+      </div>
+
         <div class="container">
+
           <legend>Nested Folders</legend>
           <main id="target">
           </main>
@@ -102,7 +108,7 @@
             <p id="summary-inner">None loaded.</p>
           </fieldset>
 
-          <fieldset class="deemp-fieldset">
+          <fieldset class="deemp-fieldset hidden">
             <legend>Testing</legend>
             <small>Search and open by folder name: scrollToSearch("Some Title"):</small><br/>
             <input type="text" id="by-search" value="II">
