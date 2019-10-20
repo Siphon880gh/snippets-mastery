@@ -1,7 +1,8 @@
 {
     "titleOverridden": "I overridden!",
     "desc": "<b>Description can support HTML or plain text. Here's a picture using relative path from the current snippet:</b><center><img src='./img/placeholder.png'/></center><p>And here are links using both relative paths and absolute paths</p><ul><li><a target='_blank' href='./index.php'>Snippets index.php</a></li><li><a target='_blank' href='http://google.com/'>Google</li></ul>",
-    "summary": ["<b>This is <u>text</u>.</b> It is in the json file as an array of strings. ",
+    "summary": ["<b>This is <u>text</u>.</b> It is in the json entry `summary` of an array of strings. ",
+                "Alternately, you can have `summaryFile` that links to a text file.",
                 "And you can jump to a text containing title ",
                 "<a href=\"javascript:void(0)\" onclick=\"scrollToSearch('I overridden')\">I overridden</a>"
                ],
