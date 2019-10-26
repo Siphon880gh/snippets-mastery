@@ -161,9 +161,14 @@
         }
         console.log($contain)
         $.ajax( {
+          cache: false,
           url: url,
           success: function(summaryFileContent) {
             var $contain = this;
+
+            if(typeof summaryFileContent === "object")
+              summaryFileContent = "<textarea class=fullwidth100>" + encodeURI(JSON.stringify(summaryFileContent)) + "</textarea>"; // if you're referencing a json file with summaryFile, force type to be string. 
+            
             summaryFileContent = summaryFileContent.replace(/\n/g, "<br>").replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
             summaryFinalText = (summaryText && summaryText.length)?`${summaryText}<br/>${summaryFileContent}`:summaryFileContent;
             createSummaryIconAndContents(summaryFinalText, $contain, true);
@@ -342,7 +347,7 @@
     
         $.ajax({
                 method:"POST", 
-                url:"data/write.php", 
+                url:"settings/write.php", 
                 data: {
                     txt: txt
                }})
@@ -358,7 +363,8 @@ function readDb() {
 
     $.ajax({
             method:"GET", 
-            url:"data/read.php", 
+            url:"settings/read.php", 
+            cache: false
            })
             .done(setDomFromJson);
 

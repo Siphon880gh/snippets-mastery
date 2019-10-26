@@ -1,6 +1,6 @@
 <?php
-
-$txt = file_get_contents("gauges.json");
+$time = time();
+$txt = file_get_contents("gauges.json?nocache=$time");
 if($txt!==false)
     echo $txt;
 else

@@ -11,6 +11,10 @@
 .thermo .fas:not(.active) {
     display: none;
 }
+.fullwidth100 {
+    width: 100% !important;
+    height: 125px;
+}
 
 /* Color themes */
 .tooltip {
