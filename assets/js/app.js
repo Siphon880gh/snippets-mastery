@@ -377,6 +377,7 @@ function readDb() {
             var $thermo = $row.find(">.contain>.thermo");
             $thermo.find(".active").removeClass("active");
             $thermo.find(".fas").eq(dat.data.thermo).addClass("active");
+            console.log(`dat.data.thermo:` + dat.data.thermo);
         
             // setStates
             var states = dat.data.multistates;
