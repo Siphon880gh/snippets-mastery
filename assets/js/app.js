@@ -214,17 +214,18 @@
     
       if(gotos && gotos.length) {
         $meta.data("gotos", gotos);
-        var $gotosBtn = $(`<span class="fas fa-globe gotos-click"></span>`);
+          var count = gotos.length;
+          var $gotosBtn = $(`<span class="fas fa-globe gotos-click"> ${count}</span>`);
       
           $gotosBtn.on("click", (event)=>{
             for(var i=0; i<gotos.length; i++) {
-              var url =gotos[i];
+              var url = gotos[i];
               var randomNum = Math.floor((Math.random() * 1000) + 1);
               if(url.length && url[0]===".") {
                 var path = $meta.attr("data-path");
                 url = path + url;
               }
-              window.open(url, "window" + randomNum);
+              window.open(url, "target_blank_" + randomNum);
             } // for
           });
   

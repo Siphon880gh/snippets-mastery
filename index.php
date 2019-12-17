@@ -94,7 +94,7 @@
     <body>
 
       <div style="position:absolute; top:0; right:5px;">
-      <a href="javascript:void(0)" onclick="window.open('README.md'); window.open('README-deploy-js.md'); window.open('https://github.com/Siphon880gh/snippets-mastery')"><span class="fa fa-question"></span></a>
+      <a href="javascript:void(0)" onclick="window.open('README.md'); window.open('README-deploy-js.md'); window.open('https://github.com/Siphon880gh/snippets-mastery')"><span class="fa fa-question"> 3</span></a>
       </div>
 
         <div class="container">
