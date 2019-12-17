@@ -1,0 +1,9 @@
+{
+    "titleOverridden": "This_text_replaces_the_tree_title_of_+Folder_Name",
+    "desc": "HTML_description_here",
+    "summaryFile": "./this_file_content_replaces_summary.json",
+    "gotos": [
+        "./Some_file_in_folder.txt",
+        "http://www.google.com"
+    ]
+}

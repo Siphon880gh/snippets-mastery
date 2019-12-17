@@ -94,12 +94,21 @@
     <body>
 
       <div style="position:absolute; top:0; right:5px;">
-      <a href="https://github.com/Siphon880gh/snippets-mastery#readme" target="_blank"><span class="fa fa-question"></span></a>
+      <a href="javascript:void(0)" onclick="window.open('README.md'); window.open('README-deploy-js.md'); window.open('https://github.com/Siphon880gh/snippets-mastery')"><span class="fa fa-question"></span></a>
       </div>
 
         <div class="container">
 
           <legend>Nested Folders</legend>
+
+          <div style="float:right; margin-top:2.5px;"><span>Open folder via terminal: </span><input id="open-command" readonly="" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="$(event.target).select();" value="open `filepath`"></div>
+          <br style="clear:both;"/>
+          <div style="float:right; margin-top:2.5px;"><span>Templates +meta.json: </span>
+            <a href="samples/1/+meta.json" target="_blank">Basic</a> | 
+            <a href="samples/2/+meta.json" target="_blank">Overriding</a> | 
+            <a href="samples/3/+meta.json" target="_blank">Advanced</a>
+          </div>
+          <br style="clear:both;"/><br/>
           <main id="target">
           </main>
 

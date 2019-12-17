@@ -319,12 +319,19 @@
   // Accordion onclicks
   $(".name").on("click", (event)=> {
     var $this = $(event.target);
+
+    // Expanding/collapsing
     $li = $this.closest("li.accordion");
     $this = $li;
     // if($this.find("ul *").length) {
       $this.children(".contain, ul").toggle("active");
       $li.find(".name").toggleClass("minus");
     // }
+
+    // Open command
+    path = $li.attr("data-path");
+    $("#open-command").val(`open '${path}'`);
+    
     event.preventDefault();
     event.stopPropagation();
   });

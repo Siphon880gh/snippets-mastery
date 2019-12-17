@@ -1,0 +1,11 @@
+{
+    "desc": "HTML_description_here",
+    "summary": [
+                "HTML_line_1",
+                "HTML_line_2"
+               ],
+    "gotos": [
+        "./Some_file_in_folder.txt",
+        "http://www.google.com"
+    ]
+}

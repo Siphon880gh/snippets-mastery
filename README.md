@@ -1,14 +1,16 @@
-# Nested Folders
+# Snippets Mastery
+
+## Nested Folders
 
 Great for studying (like biology) or collecting snippets (for programming). Say each folder is a concept. Each nested folder is a deeper concept. This tool shows those folders of information such as openable links and/or your own html code and/or document files, as well as your own summary that lets you jump to other concepts. You can store your ratings for each folder based on how important (thermometer) and your mastery (parentheses = maybe will fail, square brackets = definitely failed, checked = recalled well).
 
 Demo: [Try out](http://wengindustry.com/tools/snippets-mastery/)
 
-# Adding Folders and Files
+## Adding Folders and Files
 
 You can create nested folders. You can make mini information websites and because websites usually contain folders, then you must mark the folders you want to appear on the tool with a + at the beginning of filename. See +samples folder for an example. To reiterate, the + at the beginning of a folder will add it to the tools of collapsible nested concepts. You do not have to add a space after the +. The tool looks into the /snippets folder for these plus named folders, as well as +meta.json files contained in those folders, which we will review next.
 
-## +meta.json
+### +meta.json
 
 You can create this optional file inside a folder that will dictate other properties of how a folder name is interpreted by the tool. You can override the folder name, instead of relying on the folder name, with the field _titleOverridden_.
 
@@ -28,7 +30,7 @@ Example code of jumping to a folder or concept line:
 
 The most important field is the _gotos_ field which allows opening of many links when clicking the chalkboard icon at a folder or concept line. This is an array entry. Start an entry with "./" if you are opening a file inside the folder, such as "./README.md" or "./more-info.html." Like a normal server, "./" is sufficient to open index.html or index.php files. You can also connect to external URLs.
 
-## +meta.json Example
+### +meta.json Example
 
 ```
 {
@@ -46,6 +48,10 @@ The most important field is the _gotos_ field which allows opening of many links
     ]
 }
 ```
+
+### +saveid#####.dat
+
+These files are generated when you run the Snippets Mastery. When you click the thermometer or the multistate, this information gets saved to that part of the tree for future sessions. However, the title can be changed at anytime by changing the + folder name or the `titleOverridden` field in `+meta.json`, so Snippets Mastery automatically generate Ids and associate them to those thermometer or multistate information.
 
 ## Referring to other concepts
 

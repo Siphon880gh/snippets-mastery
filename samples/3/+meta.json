@@ -1,0 +1,12 @@
+{
+    "desc": "HTML_description_here",
+    "summary": [
+        "HTML_line_1",
+        "And_you_can_jump_to_the_tree_that_contains<a href=\"javascript:void(0)\" onclick=\"scrollToSearch('II')\">II</a>"
+    ],
+    "summaryFile": "./this_file_content_appears_after_summary.json",
+    "gotos": [
+        "./Some_file_in_folder.txt",
+        "http://www.google.com"
+    ]
+}
