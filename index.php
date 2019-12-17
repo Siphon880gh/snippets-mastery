@@ -104,9 +104,9 @@
           <div style="float:right; margin-top:2.5px;"><span>Open folder via terminal: </span><input id="open-command" readonly="" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="$(event.target).select();" value="open `filepath`"></div>
           <br style="clear:both;"/>
           <div style="float:right; margin-top:2.5px;"><span>Templates +meta.json: </span>
-            <a href="samples/1/+meta.json" target="_blank">Basic</a> | 
-            <a href="samples/2/+meta.json" target="_blank">Overriding</a> | 
-            <a href="samples/3/+meta.json" target="_blank">Advanced</a>
+            <a href="templates/1/+meta.json" target="_blank">Basic</a> | 
+            <a href="templates/2/+meta.json" target="_blank">Overriding</a> | 
+            <a href="templates/3/+meta.json" target="_blank">Advanced</a>
           </div>
           <br style="clear:both;"/><br/>
           <main id="target">
