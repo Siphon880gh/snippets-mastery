@@ -134,10 +134,15 @@
         });
 
         // debugger;
-        $info.attr("title", `<u>${titleOverridden || item.current}</u>:<br/>${$dom.html()}`);
+        // Tooltip attributes
+        $info.attr("title", `
+          <b style="font-size:21px;">Description</b><p/>
+          <u>${titleOverridden || item.current}</u>:<br/>
+          ${$dom.html()}
+        `);
         $info.tooltip({placement:"bottom", html:true, delay:{show:50}});
         $contain.append($info);
-      }
+      } // if desc
 
       var summaryText = "",
           summaryFileText = "";
@@ -194,15 +199,22 @@
           summary = decodeURI(summary);
           $("#summary-inner").html(summary);
         });
-        if(ajaxed)
+        $queriedInfoButton = $contain.find(".fa-info");
+        if($queriedInfoButton.length) {
+          $summary.insertAfter($queriedInfoButton);
+        } else {
           $contain.prepend($summary);
-        else
-          $contain.append($summary);
+        }
+        // ajaxed now obsoleted
+        // if(ajaxed)
+        //   $contain.prepend($summary);
+        // else
+        //   $contain.append($summary);
       }
     
       if(gotos && gotos.length) {
         $meta.data("gotos", gotos);
-        var $gotosBtn = $(`<span class="fas fa-chalkboard gotos-click"></span>`);
+        var $gotosBtn = $(`<span class="fas fa-globe gotos-click"></span>`);
       
           $gotosBtn.on("click", (event)=>{
             for(var i=0; i<gotos.length; i++) {

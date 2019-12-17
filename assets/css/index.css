@@ -46,11 +46,6 @@
   width: 100%;
 }
 
-/* line 35, scss/index.scss */
-.gotos-click {
-  color: green;
-}
-
 /* line 38, scss/index.scss */
 .fa-info:hover, .fa-book-reader:hover, .gotos-click:hover {
   color: darkgreen;
