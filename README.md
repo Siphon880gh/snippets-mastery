@@ -51,7 +51,11 @@ The most important field is the _gotos_ field which allows opening of many links
 
 ### +saveid#####.dat
 
-These files are generated when you run the Snippets Mastery. When you click the thermometer or the multistate, this information gets saved to that part of the tree for future sessions. However, the title can be changed at anytime by changing the + folder name or the `titleOverridden` field in `+meta.json`, so Snippets Mastery automatically generate Ids and associate them to those thermometer or multistate information.
+These files are generated when you run the Snippets Mastery. When you click the thermometer or the multistate, this information gets saved to that part of the tree for future sessions. However, the title can be changed at anytime by changing the + folder name or adding/modifying/removing the `titleOverridden` field in `+meta.json`, so Snippets Mastery automatically generate Ids and associate them to folder positions to save those thermometer or multistate information. There is no point in deleting these +saveid#####.dat files unless you choose not to use Snippets Mastery and want to clean up the files. If you delete a +saveid#####.dat file, a new +saveid#####.dat file will be generated for that + folder the next time you open up Snippets Mastery so it can save thermometer and multistate information, however the previous thermometer and multistate information is lost and your session.json is bigger in file size with useless but harmless save Id's. Furthermore, when you leave a part of the tree opened, then that part of the tree the next time you open Snippets Mastery will stay opened because of the save Id. You can move folders around and their information are retained because the save Id's have not changed and can be matched up in session.json
+
+### settings/session.json
+
+This file keeps track of all the thermometers and multistates as well as the last opened tree position (so the next time you open the Snippets Mastery, then it opens that part of the tree). You may delete this file to clear the session and start all over again. The file keeps track of the parts of the tree through the +saveid#####.dat files that are generated in every + folder.
 
 ## Referring to other concepts
 

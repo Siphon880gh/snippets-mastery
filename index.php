@@ -87,6 +87,42 @@
       ?>
     </script>
 
+    <script>
+    function selectAndCopyTextarea($el, cb) {
+      this.selectTextarea = function($el, callback) {
+        var isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+        if(isIOS)
+          $el.get(0).setSelectionRange(0,9999);
+        else
+          $el.select();
+
+        callback();
+      } // selectTextarea
+
+      this.saveToClipboard =function() {
+        try {
+          var successful = document.execCommand( 'copy' );
+          var msg = successful ? 'successful' : 'unsuccessful';
+          console.log('Copying text command was ' + msg);
+          $done.fadeIn(800).delay(1200).fadeOut(500);
+        } catch (err) {
+          console.log('Oops, unable to copy');
+        }
+
+      } // saveToClipboard
+
+      this.selectTextarea($el, saveToClipboard);
+      if(cb) cb();
+
+    } // selectAndCopyTextarea
+
+    function animateCopied() {
+      $done = $("#copied-message");
+      $done.fadeIn(800).delay(1200).fadeOut(500);
+    }
+    </script>
+
     <script src="assets/js/app.js?v=<?php echo time(); ?>"></script>
     <script src="assets/js/multistates.js?v=<?php echo time(); ?>"></script>
 
@@ -101,7 +137,7 @@
 
           <legend>Nested Folders</legend>
 
-          <div style="float:right; margin-top:2.5px;"><span>Open folder via terminal: </span><input id="open-command" readonly="" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="$(event.target).select();" value="open `filepath`"></div>
+          <div style="float:right; margin-top:2.5px;"><span>Open folder via terminal: </span><input id="open-command" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="selectAndCopyTextarea($('#open-command'), animateCopied);" value="open `filepath`"></input></div>
           <br style="clear:both;"/>
           <div style="float:right; margin-top:2.5px;"><span>Templates +meta.json: </span>
             <a href="templates/1/+meta.json" target="_blank">Basic</a> | 
@@ -138,6 +174,8 @@
           </fieldset>
 
         </div> <!-- /.container -->
+
+        <div id="copied-message" style="display:none; position:fixed; border-radius:5px; top:0; right:0; color:green; background-color:rgba(255,255,255,1); padding: 5px 10px 5px 5px;">Copied!</div>
         
         <!-- Designer: Open Sans, Lato, FontAwesome, Waypoints, Skrollr, Pixel-Em-Converter -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300|Open+Sans+Condensed:300" rel="stylesheet">
