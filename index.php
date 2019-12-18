@@ -129,7 +129,41 @@
       else
         $div.fadeOut(500);
     }
+
+    function checkSearcher() {
+      $searcher = $("#searcher");
+      if($searcher.val().length===0)
+        toggleSearchResults(false);
+    } // checkSearcher
+
+    function doSearcher() {
+      $searcher = $("#searcher");
+      val = $searcher.val();
+
+      $div = $("#search-results .contents");
+      $div.text(val);
+      toggleSearchResults(true);
+      // TODO: scrollToSearch('dev')
+
+    } // doSearcher
+
+    function clearSearcher() {
+      $searcher = $("#searcher");
+      $searcher.val("");
+      toggleSearchResults(false);
+    }
     </script>
+
+    <style>
+    .error {
+      color:red; border:1px solid red; background-color:lightred;
+      padding: 10px 20px 10px 20px;
+      border-radius: 2px;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    </style>
 
     <script src="assets/js/app.js?v=<?php echo time(); ?>"></script>
     <script src="assets/js/multistates.js?v=<?php echo time(); ?>"></script>
@@ -142,27 +176,16 @@
       </div>
 
         <div class="container">
+        
+          <?php
+            
+            if(!`which pcregrep 2>/dev/null`) {
+              echo "<div class='error'>Error: Your server does not support pcregrep necessary to find text in files. Please contact your server administrator.</div>";
+            }
+
+          ?>
 
           <legend>Nested Folders</legend>
-
-          <script>
-          function checkSearcher() {
-            $searcher = $("#searcher");
-            if($searcher.val().length===0)
-              toggleSearchResults(false);
-          } // checkSearcher
-
-          function doSearcher() {
-            $searcher = $("#searcher");
-            val = $searcher.val();
-
-            $div = $("#search-results .contents");
-            $div.text(val);
-            toggleSearchResults(true);
-            // TODO: scrollToSearch('dev')
-
-          } // doSearcher
-          </script>
 
           <div style="float:right; margin-top:5px;"><span>Open folder via terminal: </span><input id="open-command" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="selectAndCopyTextarea($('#open-command'), animateCopied);" value="open `filepath`"></input></div>
           <br style="clear:both;"/>
@@ -177,7 +200,7 @@
                 <input id="searcher" onkeyup="checkSearcher()" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
                 <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-file-text-o" style="cursor: pointer;"></span> Find text</button>
                 <span>&nbsp;</span>
-                <button onclick="if(confirm('Clear Find text field?')) $('#jump-to-line').val('');" style="cursor: pointer; border:0;">Clear</button>
+                <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;">Clear</button>
           </div>
           <br style="clear:both;"/><br/>
 
