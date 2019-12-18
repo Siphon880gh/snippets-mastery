@@ -121,6 +121,14 @@
       $done = $("#copied-message");
       $done.fadeIn(800).delay(1200).fadeOut(500);
     }
+
+    function toggleSearchResults(display) {
+      $div = $("#search-results");
+      if(display)
+        $div.fadeIn(800);
+      else
+        $div.fadeOut(500);
+    }
     </script>
 
     <script src="assets/js/app.js?v=<?php echo time(); ?>"></script>
@@ -137,20 +145,54 @@
 
           <legend>Nested Folders</legend>
 
-          <div style="float:right; margin-top:2.5px;"><span>Open folder via terminal: </span><input id="open-command" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="selectAndCopyTextarea($('#open-command'), animateCopied);" value="open `filepath`"></input></div>
+          <script>
+          function checkSearcher() {
+            $searcher = $("#searcher");
+            if($searcher.val().length===0)
+              toggleSearchResults(false);
+          } // checkSearcher
+
+          function doSearcher() {
+            $searcher = $("#searcher");
+            val = $searcher.val();
+
+            $div = $("#search-results .contents");
+            $div.text(val);
+            toggleSearchResults(true);
+            // TODO: scrollToSearch('dev')
+
+          } // doSearcher
+          </script>
+
+          <div style="float:right; margin-top:5px;"><span>Open folder via terminal: </span><input id="open-command" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="selectAndCopyTextarea($('#open-command'), animateCopied);" value="open `filepath`"></input></div>
           <br style="clear:both;"/>
-          <div style="float:right; margin-top:2.5px;"><span>Templates +meta.json: </span>
+          <div style="float:right; margin-top:5px;"><span>Templates +meta.json: </span>
             <a href="templates/1/+meta.json" target="_blank">Basic</a> | 
             <a href="templates/2/+meta.json" target="_blank">Overriding</a> | 
             <a href="templates/3/+meta.json" target="_blank">Advanced</a>
           </div>
+          <br style="clear:both;"/>
+          <div id="searcher-container" style="float:right; margin-top:5px;">
+                <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
+                <input id="searcher" onkeyup="checkSearcher()" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
+                <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-file-text-o" style="cursor: pointer;"></span> Find text</button>
+                <span>&nbsp;</span>
+                <button onclick="if(confirm('Clear Find text field?')) $('#jump-to-line').val('');" style="cursor: pointer; border:0;">Clear</button>
+          </div>
           <br style="clear:both;"/><br/>
+
           <main id="target">
           </main>
 
           <fieldset class="deemp-fieldset">
             <legend>Summary</legend>
             <p id="summary-inner">None loaded.</p>
+          </fieldset>
+
+          <br/>
+          <fieldset id="search-results" class="deemp-fieldset" style="display:none;">
+            <legend>Search Results</legend>
+            <div class="contents"></div>
           </fieldset>
 
           <fieldset class="deemp-fieldset hidden">
