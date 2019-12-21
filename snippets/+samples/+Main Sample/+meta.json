@@ -1,5 +1,5 @@
 {
-    "titleOverridden": "Main Sample (overridden title)",
+    "titleOverridden": "<span class='fa fa-paragraph'>&nbsp;</span>This_<i>html</i>_replaces_the_tree_title_of_+Folder_Name",
     "desc": "<b>This goes to overlaying popup.</b> Description can support HTML or plain text. Here's a picture using relative path from the current snippet:<center><img src='./img/placeholder.png'/></center><p>And here are links using both relative paths and absolute paths</p><ul><li><a target='_blank' href='./'>This snippet folder</a></li><li><a target='_blank' href='http://google.com/'>Google</li></ul>",
     "summary": ["<b>This goes to Summary div.</b> This is <u>text</u>.</b> It is in the json entry `summary` of an array of strings. ",
                 "Alternately, you can have `summaryFile` that links to a text file.",
