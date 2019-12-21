@@ -113,3 +113,11 @@ fieldset {
       /* min-width: 0 !important; */
     }
 }
+#table-search-results {
+    th, td {
+        padding: 5px;
+    }
+    pre {
+        white-space: pre-wrap;
+    }
+}

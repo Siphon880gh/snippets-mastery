@@ -139,10 +139,57 @@
     function doSearcher() {
       $searcher = $("#searcher");
       val = $searcher.val();
+      if(val.length===0) return;
 
       $div = $("#search-results .contents");
-      $div.text(val);
-      toggleSearchResults(true);
+      $.post("search.php", {search:val})
+      .done(greps=>{
+        greps = JSON.parse(greps); // grep results array
+        greps = greps["res"];
+        console.log(greps);
+        
+        // Reset
+        $div.html(`<div><table id="table-search-results">
+            <thead>
+              <th>Concept (Folder)</th>
+              <th>File</th>
+              <th>Context</th>
+            <thead>
+            <tbody>
+            </tbody>
+          </table></div>`)
+        $tbody = $div.find("tbody");
+
+        // Match and render
+        greps.forEach(res=> {
+          // x/y/z/filepath: surrounding_text
+
+          // Reset placeholders
+          var afterFirstDoubleColon="", beforeFirstDoubleColon="", folder = ""; file="", context="";
+
+          afterFirstDoubleColon = res.match(/:(.*)/im);
+          afterFirstDoubleColon = afterFirstDoubleColon[1];
+          afterFirstDoubleColon = afterFirstDoubleColon.trim();
+          context = afterFirstDoubleColon;
+
+          beforeFirstDoubleColon = res.match(/(.*?):/im);
+          beforeFirstDoubleColon = beforeFirstDoubleColon[1];
+          beforeFirstDoubleColon = beforeFirstDoubleColon.trim();
+
+          i = beforeFirstDoubleColon.lastIndexOf("/")
+          file = beforeFirstDoubleColon.substr(i+1);
+
+          folder = beforeFirstDoubleColon.split("/").slice(-2, -1);
+
+          $tbody.append(`
+              <tr>
+                <td>${folder}</td>
+                <td>${file}</td>
+                <td><pre>${context}</pre></td>
+              </tr>`);
+        }); // foreach
+        toggleSearchResults(true);
+      });
       // TODO: scrollToSearch('dev')
 
     } // doSearcher
@@ -198,7 +245,7 @@
           <div id="searcher-container" style="float:right; margin-top:5px;">
                 <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
                 <input id="searcher" onkeyup="checkSearcher()" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
-                <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-file-text-o" style="cursor: pointer;"></span> Find text</button>
+                <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
                 <span>&nbsp;</span>
                 <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;">Clear</button>
           </div>
@@ -208,13 +255,13 @@
           </main>
 
           <fieldset class="deemp-fieldset">
-            <legend>Summary</legend>
+            <legend><span class="fa fa-book"></span> Summary</legend>
             <p id="summary-inner">None loaded.</p>
           </fieldset>
 
           <br/>
           <fieldset id="search-results" class="deemp-fieldset" style="display:none;">
-            <legend>Search Results</legend>
+            <legend style="font-size:15.75px;"><span class="fa fa-search"></span> Search Results</legend>
             <div class="contents"></div>
           </fieldset>
 

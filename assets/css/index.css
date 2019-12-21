@@ -142,3 +142,12 @@ fieldset legend {
   margin-bottom: 0;
   /* min-width: 0 !important; */
 }
+
+/* line 117, scss/index.scss */
+#table-search-results th, #table-search-results td {
+  padding: 5px;
+}
+/* line 120, scss/index.scss */
+#table-search-results pre {
+  white-space: pre-wrap;
+}
