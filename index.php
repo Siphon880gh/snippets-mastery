@@ -6,6 +6,7 @@
   // Configurable
   $DIR_SNIPPETS = "snippets/";
   $DEFAULT_THUMBNAIL_SIZE = "90x90"; // height x width
+  $warningSearchWillFail_Arr = [];
 ?><!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,9 +30,16 @@
       // ggl - array of objects same keys merge
 
         function rglob($pattern, $flags = GLOB_ONLYDIR) {
+          global $warningSearchWillFail_Arr;
+
           $files = glob($pattern, $flags); 
           foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR) as $dir) {
               $files = array_merge($files, rglob($dir.'/'.basename($pattern), $flags));
+              $folderName = basename($dir);
+              if(strpos($folderName, ":")!==false || strpos($folderName, "/")!==false) {
+                array_push($warningSearchWillFail_Arr, $folderName);
+              }
+              // die();
           }
           return $files;
         }
@@ -193,7 +201,7 @@
               <tr>
                 <td><a onclick="scrollToNonoverridden('${folder}')" href="javascript:void(0);">${folder}</a></td>
                 <td>${file}</td>
-                <td><pre>${context}</pre></td>
+                <td class="context"><pre>${context}</pre></td>
               </tr>`);
         }); // foreach
         $("#table-search-results pre").highlight($("#searcher").val());
@@ -212,6 +220,7 @@
     .error {
       color:red; border:1px solid red; background-color:lightred;
       padding: 10px 20px 10px 20px;
+      margin-top: 10px;
       border-radius: 2px;
       margin-left: 10px;
       margin-right: 10px;
@@ -234,7 +243,16 @@
           <?php
             
             if(!`which pcregrep 2>/dev/null`) {
-              echo "<div class='error'>Error: Your server does not support pcregrep necessary to find text in files. Please contact your server administrator.</div>";
+              echo "<div class='error'>Error: Your server does not support pcregrep necessary to find text in files. Search will fail. Please contact your server administrator.</div>";
+            }
+
+            if(count($warningSearchWillFail_Arr)>0) {
+              echo "<div class='error'>Error: A folder has illegal characters : or /. Search will produce inaccurate results when hitting such folder(s). Please contact your server administrator to rename these folders:
+              <ul>";
+              foreach($warningSearchWillFail_Arr as $illegalFolder) {
+                echo "<li>$illegalFolder</li>";
+              }
+              echo "</ul></div>";
             }
 
           ?>

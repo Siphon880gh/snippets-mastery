@@ -148,16 +148,21 @@ fieldset legend {
   padding: 5px;
 }
 /* line 120, scss/index.scss */
+#table-search-results td:nth-child(3) {
+  width: 100%;
+}
+/* line 123, scss/index.scss */
 #table-search-results pre {
   white-space: pre-wrap;
+  width: 100%;
 }
 
-/* line 124, scss/index.scss */
+/* line 128, scss/index.scss */
 .meta {
   padding: 5px;
 }
 
-/* line 127, scss/index.scss */
+/* line 131, scss/index.scss */
 .highlight {
   background-color: orange;
 }

@@ -117,8 +117,12 @@ fieldset {
     th, td {
         padding: 5px;
     }
+    td:nth-child(3) {
+        width: 100%;
+    }
     pre {
         white-space: pre-wrap;
+        width: 100%;
     }
 }
 .meta {
