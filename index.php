@@ -47,7 +47,6 @@
         $lookup_metas = [];
         $lookup_saveids = [];
 
-
         function map_tp_dec($path) { // trailing parsed (removed preceding snippet/ and may remove ending slash /) and decorated object
           global $DIR_SNIPPETS;
           global $DEFAULT_THUMBNAIL_SIZE;
@@ -96,6 +95,10 @@
     </script>
 
     <script>
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+    }
+
     function selectAndCopyTextarea($el, cb) {
       this.selectTextarea = function($el, callback) {
         var isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
@@ -154,11 +157,12 @@
 
     function doSearcher() {
       $searcher = $("#searcher");
-      val = $searcher.val();
-      if(val.length===0) return;
+      query = $searcher.val();
+      query = escapeRegExp(query);
+      if(query.length===0) return;
 
       $div = $("#search-results .contents");
-      $.post("search.php", {search:val})
+      $.post("search.php", {search:query})
       .done(greps=>{
         greps = JSON.parse(greps); // grep results array
         greps = greps["res"];
