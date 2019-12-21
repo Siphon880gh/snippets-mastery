@@ -5,39 +5,41 @@ $.expr[":"].contains = $.expr.createPseudo(function(arg) {
   };
 });
 
-    function mergeByCommonPath(data) {
-      // the function where the nesting magic happens
-      // this function generates an object for each folder recursively
-      var nestnext = function (folders, item, index) {
-        
-        var newObj = {};
-        Object.assign(newObj, item);
-        newObj.current = folders[index]; // title is based on folder name
+window.lastOpenedUid = "";
 
-        newObj.next = (index + 1 < folders.length)
-            ? nestnext(folders, item, index + 1) // If there is next element, that is `index` is lesser than `folders` length, run this function recursively with the `index` of the next item
-            : [] // else return empty object
+function mergeByCommonPath(data) {
+  // the function where the nesting magic happens
+  // this function generates an object for each folder recursively
+  var nestnext = function (folders, item, index) {
+    
+    var newObj = {};
+    Object.assign(newObj, item);
+    newObj.current = folders[index]; // title is based on folder name
 
-        return newObj;
+    newObj.next = (index + 1 < folders.length)
+        ? nestnext(folders, item, index + 1) // If there is next element, that is `index` is lesser than `folders` length, run this function recursively with the `index` of the next item
+        : [] // else return empty object
 
-      } // nestnext
+    return newObj;
 
-      // Iterate over each item in data array
-      return data.map(function (item) {
-        // Separate the item's current by +
-        var folders = item.path_tp.split('/+')
-        // console.log(folders)
+  } // nestnext
 
-        // Return nested folders starting from the top-level folder
-        return nestnext(folders, item, 0)
-      })
-    } // nestFolders
-    console.log(folders);
-    folders = mergeByCommonPath(folders);
-    console.log(folders);
+  // Iterate over each item in data array
+  return data.map(function (item) {
+    // Separate the item's current by +
+    var folders = item.path_tp.split('/+')
+    // console.log(folders)
+
+    // Return nested folders starting from the top-level folder
+    return nestnext(folders, item, 0)
+  })
+} // nestFolders
+console.log(folders);
+folders = mergeByCommonPath(folders);
+console.log(folders);
 
 
-    function mergeByKey(array) {
+function mergeByKey(array) {
 
 var output = array.reduce(function(o, cur) {
 
@@ -292,76 +294,7 @@ function objToHtml(item) {
   return $liDom;
 } // objToHtml
 
-
-$(()=>{
-//https://gist.github.com/arunprasadr/9662545
-
-var $ul = $("<ul>");
-// debugger;
-for(var i=0; i<folders.length; i++) {
-  var item = folders[i];
-  var func = (item, $ul)=> {
-    var $newLi = objToHtml(item);
-    // console.log(`var $newLi = objToHtml(item);`);
-    // debugger;
-    var $newUl = $("<ul>");
-    if(item.next && item.next.length) {
-      for(var j=0; j<item.next.length; j++) {
-        func(item.next[j], $newUl);
-      }
-    } else {
-      $newLi.addClass("empty");
-    }
-    $newLi.append($newUl)
-    $ul.append($newLi);
-  }
-  func(item, $ul);
-}
-$ul.appendTo("#target");
-
-// Open up accordions initially
-$(".accordion").each((i, li) => {
-  // debugger;
-  var $this = $(li);
-  $this.children(".contain, ul").toggle("active");
-  // $this.addClass("minus");
-});
-
-// Accordion onclicks
-$(".name").on("click", (event)=> {
-  var $this = $(event.target);
-
-  // Expanding/collapsing
-  $li = $this.closest("li.accordion");
-  $this = $li;
-  // if($this.find("ul *").length) {
-    $this.children(".contain, ul").toggle("active");
-    $li.children(".name").toggleClass("minus");
-  // }
-
-  // Open command
-  path = $li.attr("data-path");
-  $("#open-command").val(`open '${path}'`);
-  
-  event.preventDefault();
-  event.stopPropagation();
-});
-
-setTimeout(()=> {
-  readDb(); // for thermometer and multistates
-
-  //close tooltip if clicked outside
-  $('body').on('click', function (e) {
-    var $el = $(e.target);
-      if ($el.data('toggle') !== 'tooltip' && $el.closest(".tooltip").length === 0) {
-      $(".tooltip-inner").closest(".tooltip").prev().click();
-      }
-  });
-}, 100)
-});
-
 function updateDb() {
-  // alert("updateDb");
   // Read JSON
   setTimeout(()=> {
       var arr = $("li").toArray().map((el) => { 
@@ -372,19 +305,21 @@ function updateDb() {
               multistates: $(el).find(".multistates .data-wrapper").attr("data-states")} 
           } 
       });
-      var txt = JSON.stringify(arr);
-      // debugger;
+      var prepared = JSON.stringify({
+        "opened":window.lastOpenedUid, 
+        "gauges":arr
+      });
   
       $.ajax({
-              method:"POST", 
-              url:"settings/write.php", 
-              data: {
-                  txt: txt
-             }})
-              .done( (dat)=>{ 
-                  console.log("Written to Db");
-                  // console.log(dat); 
-              });
+          method:"POST", 
+          url:"settings/write.php", 
+          data: {
+              txt: prepared
+          }})
+          .done( (dat)=>{ 
+              console.log("Written to Db");
+              // console.log(dat); 
+      });
   }, 200);
 } // updateDb
 
@@ -398,10 +333,12 @@ function readDb() {
          })
           .done(setDomFromJson);
 
-  function setDomFromJson(txt) {
+  function setDomFromJson(session) {
       console.log("Reading Db");
-      var arr = JSON.parse(txt);
-      arr.forEach((dat) => {
+      var {opened, gauges} = JSON.parse(session);
+      window.lastOpenedUid = opened;
+
+      gauges.forEach((dat) => {
           var $row = $(`li[data-uid="${dat.uid}"]`);
           // debugger;
           var $thermo = $row.find(">.contain>.thermo");
@@ -436,34 +373,35 @@ function readDb() {
          $states.find(".p4").addClass(classes[3]);
 
       }); // forEach
+
+      waitForDom = setInterval( ()=> {
+        if($(`[data-uid="${window.lastOpenedUid}"]`).length) {
+          setTimeout(()=>{
+            STARTING_MODE = true;
+            scrollToUniqueId(window.lastOpenedUid, STARTING_MODE);
+            console.log(`DOM rendered. Calling scrollToUniqueId("${window.lastOpenedUid}");`);
+          }, 200); // timeout is necessary because it does not register if too early
+          clearInterval(waitForDom);
+        }
+      }, 100);
   } // setDomFromJson
 
 } // readDb
 
-function scrollToUniqueId(uniqueId) {
+function scrollToUniqueId(uniqueId, startingMode) {
   /* Get the $row */
   if(uniqueId.length && uniqueId[0]==='+')
       uniqueId = uniqueId.substr(1);
 
   var selector = `[data-uid="${uniqueId}"]`;
   var $foundRow = $(selector);
+  if($foundRow.length===0) return;
 
   toOpenUp_Exec($foundRow);
-  toOpenUp_Highlight($foundRow);
+  if(!startingMode)
+    toOpenUp_Highlight($foundRow);
   $foundRow[0].scrollIntoView();
-
-  // Animated what's scrolled to?
-  // $animatedDom = $foundRow;
-  // setTimeout( ()=> {
-  //     if(typeof $animatedDom!=="undefined") {
-  //         $animatedDom.removeClass("ministateAnimate");
-  //         $animatedDom.addClass("ministateAnimate");
-  //         setTimeout(function() {
-  //             $animatedDom.removeClass("ministateAnimate");
-  //         }, 200);
-  //     }
-  // }, 500);
-}
+} // scrollToUniqueId
 
 function scrollToText(partial) {
   var $foundRow = $(`li:contains(${partial})`);
@@ -530,3 +468,75 @@ function toOpenUp_Highlight($row) {
       $row.off("hover");
   });
 }
+
+
+$(()=>{
+  //https://gist.github.com/arunprasadr/9662545
+  
+  var $ul = $("<ul>");
+  for(var i=0; i<folders.length; i++) {
+    var item = folders[i];
+    var func = (item, $ul)=> {
+      var $newLi = objToHtml(item);
+      // console.log(`var $newLi = objToHtml(item);`);
+      // debugger;
+      var $newUl = $("<ul>");
+      if(item.next && item.next.length) {
+        for(var j=0; j<item.next.length; j++) {
+          func(item.next[j], $newUl);
+        }
+      } else {
+        $newLi.addClass("empty");
+      }
+      $newLi.append($newUl)
+      $ul.append($newLi);
+    }
+    func(item, $ul);
+  }
+  $ul.appendTo("#target");
+  
+  // Open up accordions initially
+  $(".accordion").each((i, li) => {
+    // debugger;
+    var $this = $(li);
+    $this.children(".contain, ul").toggle("active");
+    // $this.addClass("minus");
+  });
+  
+  // Accordion onclicks
+  $(".name").on("click", (event)=> {
+    var $name = $(event.target);
+    var uid = $name.closest("li").attr("data-uid");
+    window.lastOpenedUid = uid;
+    console.log(`Clicked uid/name: ${uid}/${$name[0].innerText}`);
+  
+    // Expanding/collapsing
+    $li = $name.closest("li.accordion");
+    $li.children(".contain, ul").toggle("active");
+    $name.toggleClass("minus");
+    // $li.children(".name").toggleClass("minus");
+  
+    // Open command
+    path = $li.attr("data-path");
+    $("#open-command").val(`open '${path}'`);
+
+    // Update last opened tree part
+    updateDb();
+    
+    event.preventDefault();
+    event.stopPropagation();
+  });
+  
+  setTimeout(()=> {
+    //close tooltip if clicked outside
+    $('body').on('click', function (e) {
+      var $el = $(e.target);
+        if ($el.data('toggle') !== 'tooltip' && $el.closest(".tooltip").length === 0) {
+        $(".tooltip-inner").closest(".tooltip").prev().click();
+        }
+    });
+    
+    readDb(); // for thermometer and multistates
+  
+  }, 100)
+  }); // on dom

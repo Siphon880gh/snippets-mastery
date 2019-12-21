@@ -2,7 +2,7 @@
 
 ## Nested Folders
 
-Great for studying (like biology) or collecting snippets (for programming). Say each folder is a concept. Each nested folder is a deeper concept. This tool shows those folders of information such as openable links and/or your own html code and/or document files, as well as your own summary that lets you jump to other concepts. You can store your ratings for each folder based on how important (thermometer) and your mastery (parentheses = maybe will fail, square brackets = definitely failed, checked = recalled well).
+Great for studying (like biology) or collecting code snippets (for programming). Say each folder is a concept. Each nested folder is a deeper concept. This tool shows those folders of information such as openable links and/or your own html code and/or document files, as well as your own summary that lets you jump to other concepts. You can store your ratings for each folder based on how important (thermometer) and your mastery (parentheses = maybe will fail, square brackets = definitely failed, checked = recalled well).
 
 Demo: [Try out](http://wengindustry.com/tools/snippets-mastery/)
 
