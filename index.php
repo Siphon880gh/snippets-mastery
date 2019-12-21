@@ -130,10 +130,18 @@
         $div.fadeOut(500);
     }
 
-    function checkSearcher() {
+    // If user erases content in input, dynamically erase any present search results
+    // If user presses enter on input, then click the search
+    function checkSearcher(event) {
       $searcher = $("#searcher");
       if($searcher.val().length===0)
         toggleSearchResults(false);
+
+      if(event.keyCode === 13)
+        {
+          event.preventDefault();
+          $("#searcher-btn").click();
+        }
     } // checkSearcher
 
     function doSearcher() {
@@ -188,6 +196,7 @@
                 <td><pre>${context}</pre></td>
               </tr>`);
         }); // foreach
+        $("#table-search-results pre").highlight($("#searcher").val());
         toggleSearchResults(true);
       });
     } // doSearcher
@@ -241,8 +250,9 @@
           </div>
           <br style="clear:both;"/>
           <div id="searcher-container" style="float:right; margin-top:5px;">
+                <form action=""></form>
                 <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
-                <input id="searcher" onkeyup="checkSearcher()" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
+                <input id="searcher" onkeyup="checkSearcher(event)" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
                 <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
                 <span>&nbsp;</span>
                 <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;">Clear</button>
@@ -287,6 +297,9 @@
 
         <div id="copied-message" style="display:none; position:fixed; border-radius:5px; top:0; right:0; color:green; background-color:rgba(255,255,255,1); padding: 5px 10px 5px 5px;">Copied!</div>
         
+        <!-- Highlighter -->
+        <script src="assets/js/jquery.highlight.js"></script>
+
         <!-- Designer: Open Sans, Lato, FontAwesome, Waypoints, Skrollr, Pixel-Em-Converter -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300|Open+Sans+Condensed:300" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
