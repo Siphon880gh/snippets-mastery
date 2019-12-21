@@ -183,15 +183,13 @@
 
           $tbody.append(`
               <tr>
-                <td>${folder}</td>
+                <td><a onclick="scrollToNonoverridden('${folder}')" href="javascript:void(0);">${folder}</a></td>
                 <td>${file}</td>
                 <td><pre>${context}</pre></td>
               </tr>`);
         }); // foreach
         toggleSearchResults(true);
       });
-      // TODO: scrollToSearch('dev')
-
     } // doSearcher
 
     function clearSearcher() {
@@ -267,9 +265,9 @@
 
           <fieldset class="deemp-fieldset hidden">
             <legend>Testing</legend>
-            <small>Search and open by folder name: scrollToSearch("Some Title"):</small><br/>
+            <small>Search and open by folder name: scrollToText("Some Title"):</small><br/>
             <input type="text" id="by-search" value="II">
-            <button onclick='scrollToSearch($("#by-search").val())'>Run function</button>
+            <button onclick='scrollToText($("#by-search").val())'>Run function</button>
             <br><br>
 
             <small>Open by unique Id (Id is in li[data-uid] or folder contents): scrollToUniqueId("unique....dat"):</small><br/>

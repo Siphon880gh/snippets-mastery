@@ -4,7 +4,7 @@
     "summary": ["<b>This goes to Summary div.</b> This is <u>text</u>.</b> It is in the json entry `summary` of an array of strings. ",
                 "Alternately, you can have `summaryFile` that links to a text file.",
                 "You can combine both summary and summaryFile and will render in that order",
-                "And you can jump to a text containing title <a href=\"javascript:void(0)\" onclick=\"scrollToSearch('II')\">II</a>",
+                "And you can jump to a text containing title <a href=\"javascript:void(0)\" onclick=\"scrollToText('II')\">II</a>",
                 "Below is the sample meta file:"
                ],
     "summaryFile": "./+meta.json",
