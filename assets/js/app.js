@@ -336,7 +336,7 @@ $(".name").on("click", (event)=> {
   $this = $li;
   // if($this.find("ul *").length) {
     $this.children(".contain, ul").toggle("active");
-    $li.find(".name").toggleClass("minus");
+    $li.children(".name").toggleClass("minus");
   // }
 
   // Open command
