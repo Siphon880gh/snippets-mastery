@@ -1,0 +1,6 @@
+Recommend adding this as an alias `mkdiro` which allows you to create a folder and also cd into it in one command:
+
+function mkdiro () { mkdir $1; cd $1; };
+
+How to use:
+mkdiro +new-folder
