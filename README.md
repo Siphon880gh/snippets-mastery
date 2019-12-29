@@ -40,7 +40,7 @@ The most important field is the _gotos_ field which allows opening of many links
                 "And you can jump to a text containing title ",
                 "<a href=\"javascript:void(0)\" onclick=\"scrollToText('I overridden')\">I overridden</a>"
                ],
-    "summaryFile": "./test.txt",
+    "footerFile": "./test.txt",
     "gotos": [
         ".",
         "./readme.md",
@@ -48,6 +48,10 @@ The most important field is the _gotos_ field which allows opening of many links
     ]
 }
 ```
+
+### `summary`, +meta.txt, `footerFile`
+
+The summary section at Snippets Mastery combines if they exist in this order: summary, +meta.txt, and footerFile. You do not need a +meta.json. For faster snippets, youo can just create a +meta.txt and that will be the summary section for that snippet.
 
 ### +saveid#####.dat
 

@@ -108,7 +108,7 @@ function objToHtml(item) {
   
   if(lookupMetas[item.path]) {
     // Extract property from metas. If property not defined at +meta.json, then it'll be value undefined
-    var {summary, summaryFile, titleOverridden, desc, gotos} = lookupMetas[item.path];
+    var {summary, footerFile, titleOverridden, desc, gotos} = lookupMetas[item.path];
     // debugger;
 
     // Folder text overridden vs not overridden
@@ -155,7 +155,7 @@ function objToHtml(item) {
     } // if desc
 
     var summaryText = "",
-        summaryFileText = "";
+        footerFileText = "";
 
     // Prepare summary text if exists
     if(summary && summary.length) {
@@ -168,8 +168,8 @@ function objToHtml(item) {
     }
 
     // Get and prepare summary file text if exists, then render
-    if(summaryFile && summaryFile.length) {
-      var url = summaryFile;
+    if(footerFile && footerFile.length) {
+      var url = footerFile;
       if(url.length && url[0]===".") {
         var path = $meta.attr("data-path");
         url = path + url;
@@ -178,14 +178,14 @@ function objToHtml(item) {
       $.ajax( {
         cache: false,
         url: url,
-        success: function(summaryFileContent) {
+        success: function(footerFileContent) {
           var $contain = this;
 
-          if(typeof summaryFileContent === "object")
-            summaryFileContent = "<textarea class=fullwidth100>" + encodeURI(JSON.stringify(summaryFileContent)) + "</textarea>"; // if you're referencing a json file with summaryFile, force type to be string. 
+          if(typeof footerFileContent === "object")
+            footerFileContent = "<textarea class=fullwidth100>" + encodeURI(JSON.stringify(footerFileContent)) + "</textarea>"; // if you're referencing a json file with footerFile, force type to be string. 
           
-          summaryFileContent = summaryFileContent.replace(/\n/g, "<br>").replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
-          summaryFinalText = (summaryText && summaryText.length)?`${summaryText}<br/>${summaryFileContent}`:summaryFileContent;
+          footerFileContent = footerFileContent.replace(/\n/g, "<br>").replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+          summaryFinalText = (summaryText && summaryText.length)?`${summaryText}<br/>${footerFileContent}`:footerFileContent;
           createSummaryIconAndContents(summaryFinalText, $contain, true);
         }.bind($contain),
         error: function(error) {

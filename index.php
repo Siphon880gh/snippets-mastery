@@ -23,76 +23,91 @@
     <link href="assets/css/index.css?v=<?php echo time(); ?>" rel="stylesheet">
     <link href="assets/css/multistates.css?v=<?php echo time(); ?>" rel="stylesheet">
 
-    <script>
-      <?php
-      // TODO:
-      // https://stackoverflow.com/questions/33850412/merge-javascript-objects-in-array-with-same-key
-      // ggl - array of objects same keys merge
+    <?php
+    // TODO:
+    // https://stackoverflow.com/questions/33850412/merge-javascript-objects-in-array-with-same-key
+    // ggl - array of objects same keys merge
 
-        function rglob($pattern, $flags = GLOB_ONLYDIR) {
-          global $warningSearchWillFail_Arr;
+      function rglob($pattern, $flags = GLOB_ONLYDIR) {
+        global $warningSearchWillFail_Arr;
 
-          $files = glob($pattern, $flags); 
-          foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR) as $dir) {
-              $files = array_merge($files, rglob($dir.'/'.basename($pattern), $flags));
-              $folderName = basename($dir);
-              if(strpos($folderName, ":")!==false || strpos($folderName, "/")!==false) {
-                array_push($warningSearchWillFail_Arr, $folderName);
-              }
-              // die();
-          }
-          return $files;
+        $files = glob($pattern, $flags); 
+        foreach (glob(dirname($pattern).'/*', GLOB_ONLYDIR) as $dir) {
+            $files = array_merge($files, rglob($dir.'/'.basename($pattern), $flags));
+            $folderName = basename($dir);
+            if(strpos($folderName, ":")!==false || strpos($folderName, "/")!==false) {
+              array_push($warningSearchWillFail_Arr, $folderName);
+            }
+            // die();
         }
-        $dirs = rglob("$DIR_SNIPPETS+?*");
-        $lookup_metas = [];
-        $lookup_saveids = [];
+        return $files;
+      }
+      $dirs = rglob("$DIR_SNIPPETS+?*");
+      $lookup_metas = [];
+      $lookup_saveids = [];
 
-        function map_tp_dec($path) { // trailing parsed (removed preceding snippet/ and may remove ending slash /) and decorated object
-          global $DIR_SNIPPETS;
-          global $DEFAULT_THUMBNAIL_SIZE;
-          global $lookup_metas;
-          global $lookup_saveids;
-          
-          $path_tp = substr($path, strlen($DIR_SNIPPETS)+1); // trailing parsed
+      function map_tp_dec($path) { // trailing parsed (removed preceding snippet/ and may remove ending slash /) and decorated object
+        global $DIR_SNIPPETS;
+        global $DEFAULT_THUMBNAIL_SIZE;
+        global $lookup_metas;
+        global $lookup_saveids;
+        
+        $path_tp = substr($path, strlen($DIR_SNIPPETS)+1); // trailing parsed
 
-          // Assure trailing forward slash /
-          $lastChar = $path[strlen($path)-1];
-          $path = ($lastChar==='/') ? $path : "$path/";
-          $desc = $thumbnail = $gotos = null;
+        // Assure trailing forward slash /
+        $lastChar = $path[strlen($path)-1];
+        $path = ($lastChar==='/') ? $path : "$path/";
+        $desc = $thumbnail = $gotos = null;
 
-          $decorated = [
-            "current" => "",
-            "path" => $path,
-            "path_tp" => $path_tp,
-            "next" => []
-          ];
+        $decorated = [
+          "current" => "",
+          "path" => $path,
+          "path_tp" => $path_tp,
+          "next" => []
+        ];
 
-          if(file_exists($path . "+meta.json")) {
-            $lookup_metas[$path] = @json_decode(file_get_contents($path . "+meta.json"));
-          }
+        if(file_exists($path . "+meta.json")) {
+          $lookup_metas[$path] = @json_decode(file_get_contents($path . "+meta.json"), true);
+        }
 
-          $saveid_globs = glob($path . "+saveid*.dat");
-          if(count($saveid_globs)===0) {
-            $microtime = microtime(true);
-            file_put_contents($path . "+saveid" . $microtime . ".dat", "");
-            $saveid_glob = $microtime . ".dat";
-          } else {
-            $saveid_glob = basename($saveid_globs[0]);
-          }
-          $lookup_saveids[$path] = $saveid_glob;
-
+        // var_dump($lookup_metas);
+        // die();
+        if(file_exists($path . "+meta.txt")) {
+          // var_dump($lookup_metas);
           // die();
-          
-          return $decorated;
-        } // map_tp_dec
-        $dirs = array_map("map_tp_dec", $dirs);
+          if(!isset($lookup_metas[$path]["summary"]))
+            $lookup_metas[$path]["summary"] = array();
+          $file_contents = "";
+          $file_contents = @file_get_contents($path . "+meta.txt");
+          array_push($lookup_metas[$path]["summary"], "<textarea class='fullwidth100'>" . $file_contents . "</textarea>");
+          // var_dump($lookup_metas);
+          // die();
+          // $lookup_metas[$path]["summary"] .= file_get_contents($path . "+meta.txt");
+        }
 
-        echo "var folders = " . json_encode($dirs) . ",";
-        echo "ori = folders, ";
-        echo "lookupMetas = " . json_encode($lookup_metas) . ";";
-        echo "lookupUniqueIds = " . json_encode($lookup_saveids) . ";";
-      ?>
-    </script>
+        $saveid_globs = glob($path . "+saveid*.dat");
+        if(count($saveid_globs)===0) {
+          $microtime = microtime(true);
+          file_put_contents($path . "+saveid" . $microtime . ".dat", "");
+          $saveid_glob = $microtime . ".dat";
+        } else {
+          $saveid_glob = basename($saveid_globs[0]);
+        }
+        $lookup_saveids[$path] = $saveid_glob;
+
+        // die();
+        
+        return $decorated;
+      } // map_tp_dec
+      $dirs = array_map("map_tp_dec", $dirs);
+
+      echo "<script>";
+      echo "var folders = " . json_encode($dirs) . ",";
+      echo "ori = folders, ";
+      echo "lookupMetas = " . json_encode($lookup_metas) . ";";
+      echo "lookupUniqueIds = " . json_encode($lookup_saveids) . ";";
+      echo "</script>";
+    ?>
 
     <script>
     <?php
