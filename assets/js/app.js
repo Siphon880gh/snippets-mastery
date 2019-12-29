@@ -518,7 +518,7 @@ $(()=>{
   
     // Open command
     path = $li.attr("data-path");
-    $("#open-command").val(`open '${path}'`);
+    $("#open-command").val(`cd '${realpath}/${path}'`);
 
     // Update last opened tree part
     updateDb();
