@@ -4,3 +4,5 @@ function toucho() { concat_args=""${@}""; touch "$concat_args"; open "$concat_ar
 
 How to use:
 toucho +new file
+toucho +meta.json
+toucho +meta.txt
