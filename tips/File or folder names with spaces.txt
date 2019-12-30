@@ -1,3 +1,12 @@
-You can create these folders at command line with single quotes. Eg.
-
+You can create files or folders at command line. If there are spaces in the name, you would use single quotes. Eg.
 mkdir 'new folder'
+touch 'new file'
+
+But with the enhanced mkdiro and toucho, you do not need quotes although it's still a valid syntax. In addition, it cd into the new directory or opens the new file so you can immediately continue with further work:
+
+mkdiro new folder
+mkdiro 'new folder'
+toucho new file
+toucho 'new file'
+
+To setup the enhanced commands, refer to mkdiro.txt or toucho.txt

@@ -1,0 +1,6 @@
+I recommend adding this as an alias `toucho` which allows you to create a file and also open it for editing in one command. Conveniently, it is optional to use quotes if the filename has spaces:
+
+function toucho() { concat_args=""${@}""; touch "$concat_args"; open "$concat_args"; };
+
+How to use:
+toucho +new file
