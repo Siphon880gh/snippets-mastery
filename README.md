@@ -68,6 +68,10 @@ You can jump to different concepts from a summary.
 "<a href=\"javascript:void(0)\" onclick=\"scrollToText('I overridden')\">I overridden</a>"
 ```
 
+## Searching snippets
+
+You can search snippets (not the filenames). There is a search bar at the top right. This tool uses pcregrep to search snippets. If your os does not support pcregrep, you will see a notice at the top in red.
+
 ## Summary formats
 
 Summary can be typed as an array of strings like the above example in +meta.json. However, it can simply be a string. Or you can have the summary read from a file. If you provide both the array/string and the file path, then it will read the array/string then the file contents.
