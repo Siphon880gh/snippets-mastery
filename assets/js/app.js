@@ -469,6 +469,9 @@ function toOpenUp_Highlight($row) {
   });
 }
 
+function openCommand_ToRoot() {
+  $("#open-command").val(`cd '${realpath}'`);
+}
 
 $(()=>{
   //https://gist.github.com/arunprasadr/9662545
@@ -526,7 +529,7 @@ $(()=>{
     event.preventDefault();
     event.stopPropagation();
   });
-  
+
   setTimeout(()=> {
     //close tooltip if clicked outside
     $('body').on('click', function (e) {

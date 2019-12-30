@@ -284,7 +284,7 @@
 
           <legend>Nested Folders</legend>
 
-          <div style="float:right; margin-top:5px;"><span>Goto folder in terminal: </span><input id="open-command" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="selectAndCopyTextarea($('#open-command'), animateCopied);" value="cd `filepath`"></input></div>
+          <div style="float:right; margin-top:5px;"><span>Goto folder in terminal [Goto <a href="javascript:void(0)" onclick="openCommand_ToRoot();">root</a>]: </span><input id="open-command" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="selectAndCopyTextarea($('#open-command'), animateCopied);" value="cd `filepath`"></input></div>
           <br style="clear:both;"/>
           <div style="float:right; margin-top:5px;"><span>Templates +meta.json: </span>
             <a href="templates/1/+meta.json" target="_blank">Basic</a> | 
