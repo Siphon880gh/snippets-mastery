@@ -208,6 +208,8 @@ function objToHtml(item) {
         var summary = $this.attr("data-summary");
         summary = decodeURI(summary);
         $("#summary-inner").html(summary);
+        var height = $("textarea")[0].scrollHeight;
+        $("textarea").height(height);
       });
       $queriedInfoButton = $contain.find(".fa-info");
       if($queriedInfoButton.length) {

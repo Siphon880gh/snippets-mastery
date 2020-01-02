@@ -166,3 +166,8 @@ fieldset legend {
 .highlight {
   background-color: orange;
 }
+
+/* line 134, scss/index.scss */
+#summary-inner textarea {
+  border-color: white;
+}
