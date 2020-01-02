@@ -292,6 +292,9 @@
             <a href="templates/3/+meta.json" target="_blank">Advanced</a>
           </div>
           <br style="clear:both;"/>
+          <div style="float:right; margin-top:5px;"><span>Or create a quick summary with +meta.txt</span></div>
+          <br style="clear:both;"/>
+          <div style="width:1px; height:10px;"></div>
           <div id="searcher-container" style="float:right; margin-top:5px;">
                 <form action=""></form>
                 <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
