@@ -282,7 +282,7 @@
 
           ?>
 
-          <legend>Nested Folders</legend>
+          <legend>Snippets Mastery</legend>
 
           <div style="float:right; margin-top:5px;"><span>Goto folder in terminal [Goto <a href="javascript:void(0)" onclick="openCommand_ToRoot();">root</a>]: </span><input id="open-command" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="selectAndCopyTextarea($('#open-command'), animateCopied);" value="cd `filepath`"></input></div>
           <br style="clear:both;"/>
@@ -309,7 +309,7 @@
           </main>
 
           <fieldset class="deemp-fieldset">
-            <legend><span class="fa fa-book"></span> Summary</legend>
+            <legend><span class="fa fa-book-reader summary-header"></span> Summary</legend>
             <p id="summary-inner">None loaded.</p>
           </fieldset>
 

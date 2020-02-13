@@ -47,7 +47,7 @@
 }
 
 /* line 38, scss/index.scss */
-.fa-info:hover, .fa-book-reader:hover, .gotos-click:hover {
+.fa-info:hover, .fa-book-reader:not(.summary-header):hover, .gotos-click:hover {
   color: darkgreen;
 }
 
@@ -73,7 +73,7 @@
 
 /* Tweaking design */
 /* line 56, scss/index.scss */
-.fa-info, .fa-book-reader, .gotos-click, .thermo, .multistates-wrapper {
+.fa-info, .fa-book-reader:not(.summary-header), .gotos-click, .thermo, .multistates-wrapper {
   margin-left: 1ch;
 }
 
