@@ -260,7 +260,8 @@
     <body>
 
       <div style="position:absolute; top:0; right:5px;">
-      <a href="javascript:void(0)" onclick="window.open('README.md'); window.open('README-deploy-js.md'); window.open('https://github.com/Siphon880gh/snippets-mastery')"><span class="fa fa-question"> 3</span></a>
+      <a href="javascript:void(0)" onclick="window.open('README.md'); window.open('README-deploy-js.md'); window.open('https://github.com/Siphon880gh/snippets-mastery'); event.stopPropagation();"><span class="fa fa-question"> ReadMe's (3)</span></a>
+      <a href="javascript:void(0)" onclick="$('#help-templates').toggleClass('hidden'); event.stopPropagation();"><span class="fa fa-question"> Quick Add</span></a>
       </div>
 
         <div class="container">
@@ -282,19 +283,36 @@
 
           ?>
 
-          <legend>Snippets Mastery</legend>
+          <legend>Snippets Mastery
+          <script>
+          $(()=>{
+            var howMany = $("ul:not(:has(*))").length;
+            $("#how-many .value").text(howMany);
+          })
+          </script>
+          <div id="how-many" style="font-size: 1rem;"><label for="">By Weng.<br/>Snippets Counted:&nbsp;</label><span class="value"></span></div>
+          </legend>
 
-          <div style="float:right; margin-top:5px;"><span>Goto folder in terminal [Goto <a href="javascript:void(0)" onclick="openCommand_ToRoot();">root</a>]: </span><input id="open-command" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="selectAndCopyTextarea($('#open-command'), animateCopied);" value="cd `filepath`"></input></div>
-          <br style="clear:both;"/>
-          <div style="float:right; margin-top:5px;"><span>Templates +meta.json: </span>
-            <a href="templates/1/+meta.json" target="_blank">Basic</a> | 
-            <a href="templates/2/+meta.json" target="_blank">Overriding</a> | 
-            <a href="templates/3/+meta.json" target="_blank">Advanced</a>
+
+          <div id="help-templates" class="hidden" style="float:right; margin-top:5px; border: 1px solid black; padding:10px; text-align:left;">
+            <div>
+              <span style="font-weight:500;">Here are quick instructions on adding more snippets:</span><br/>
+              <div style="width:1px; height:5px;"></div>
+              <span>1. Go to <a href="javascript:void(0)" onclick="openCommand_ToRoot();">Snippet Mastery's folder</a> in termal: </span><input id="open-command" style="background-color:darkgray; color:white; padding: 0 5px 0 5px; width:350px;" onclick="selectAndCopyTextarea($('#open-command'), animateCopied);" value="cd `filepath`"></input>
+            </div>
+            <div style="margin-top:5px;"><span>2. Then inside /snippets folder, create folders preceded with '+' to be parsed by Snippets Mastery. You can create as much nesting as you want by having "+" type folders in other "+" type folders.</div>
+            <div style="margin-top:5px;"><span>3. For a folder that's a snippet, create a file +meta.json that follows some conventions, such as in these templates: </span>
+              <a href="templates/1/+meta.json" target="_blank">Basic</a> | 
+              <a href="templates/2/+meta.json" target="_blank">Overriding</a> | 
+              <a href="templates/3/+meta.json" target="_blank">Advanced</a>
+            </div>
+            <div style="margin-top:5px;">
+              <span>Or create a quick summary with +meta.txt (notice .txt rather than .json)</span>
+            </div>
           </div>
-          <br style="clear:both;"/>
-          <div style="float:right; margin-top:5px;"><span>Or create a quick summary with +meta.txt</span></div>
-          <br style="clear:both;"/>
-          <div style="width:1px; height:10px;"></div>
+
+          <div style="width:1px; height:10px; clear:both;"></div>
+          
           <div id="searcher-container" style="float:right; margin-top:5px;">
                 <form action=""></form>
                 <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
