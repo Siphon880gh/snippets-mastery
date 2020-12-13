@@ -231,6 +231,9 @@
         }); // foreach
         $("#table-search-results pre").highlight($("#searcher").val());
         toggleSearchResults(true);
+
+        // Scroll to bottom where search results are
+        window.scrollTo(0,document.body.scrollHeight);
       });
     } // doSearcher
 
