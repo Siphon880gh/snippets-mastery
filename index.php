@@ -256,13 +256,37 @@
     }
     </style>
 
+    <script>
+    function toggleAllExpand() {
+      const $styleBlock = $("#style-toggle-all-expand");
+      const isOn = $styleBlock.text().trim().length>0;
+      if(isOn) {
+        $styleBlock.text("");
+      } else {
+        $styleBlock.html("ul { display: block !important; }");
+      }
+    }
+    </script>
+
+    <style>
+    @media print {
+      #searcher-container, #help-links, legend, fieldset {
+        display: none;
+      }
+      #printer-title::after {
+        content: "Snippets";
+        font-size: 2rem;
+      }
+    }
+    </style>
+
     <script src="assets/js/app.js?v=<?php echo time(); ?>"></script>
     <script src="assets/js/multistates.js?v=<?php echo time(); ?>"></script>
 
 </head>
     <body>
 
-      <div style="position:absolute; top:0; right:5px;">
+      <div id="help-links" style="position:absolute; top:0; right:5px;">
       <a href="javascript:void(0)" onclick="window.open('README.md'); window.open('README-deploy-js.md'); window.open('https://github.com/Siphon880gh/snippets-mastery'); event.stopPropagation();"><span class="fa fa-question"> ReadMe's (3)</span></a>
       <a href="javascript:void(0)" onclick="$('#help-templates').toggleClass('hidden'); event.stopPropagation();"><span class="fa fa-question"> Quick Add</span></a>
       </div>
@@ -322,8 +346,11 @@
                 <input id="searcher" onkeyup="checkSearcher(event)" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
                 <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
                 <span>&nbsp;</span>
-                <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;">Clear</button>
+                <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
+                <button onclick="toggleAllExpand();" style="cursor: pointer; border:0;"><span class="fa fa-eye" style="cursor: pointer;"> Toggle All</button>
+                <button onclick="window.print();" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
           </div>
+          <div id="printer-title"></div>
           <br style="clear:both;"/><br/>
 
           <main id="target">
@@ -364,6 +391,9 @@
 
         <div id="copied-message" style="display:none; position:fixed; border-radius:5px; top:0; right:0; color:green; background-color:rgba(255,255,255,1); padding: 5px 10px 5px 5px;">Copied!</div>
         
+        <style id="style-toggle-all-expand">
+        </style>
+
         <!-- Highlighter -->
         <script src="assets/js/jquery.highlight.js"></script>
 
