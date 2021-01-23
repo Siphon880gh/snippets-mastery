@@ -271,7 +271,7 @@
 
     <style>
     @media print {
-      #searcher-containers, #help-links, legend, fieldset {
+      #searcher-containers, #help-links, .site-title, fieldset {
         display: none;
       }
       #printer-title::after {
@@ -285,9 +285,10 @@
         padding: 0;
       }
       .mobile-flush-top {
-        position:absolute;
-        top:2px;
-        right: 2px;
+        /* position:relative;
+        top:-6.5rem;
+        right: 2px; */
+        display:none;
       }
     }
     @media SCREEN and (min-width: 768px) {
@@ -297,9 +298,23 @@
     }
     #searcher-btn, #searcher-2-btn {
       margin-left: -5px;
+      border-radius: 0 !important;
     }
     #searcher, #searcher-2 {
       margin-left: 10px;
+    }
+
+    /* These help links are usually for Desktop users so take it off on mobile */
+    @media SCREEN and (max-width: 768px) {
+      #help-links {
+        display: none;
+      }
+      .site-title {
+        margin-top: 2rem;
+      }
+      .site-title, #how-many {
+        text-align: center;
+      }
     }
     </style>
 
@@ -333,7 +348,7 @@
 
           ?>
 
-          <legend>Snippets Mastery
+          <legend class="site-title">Snippets Mastery
           <script>
           $(()=>{
             var howMany = $("ul:not(:has(*))").length;
