@@ -341,7 +341,7 @@
 
           <div style="width:1px; height:10px; clear:both;"></div>
           
-          <div id="searcher-containers" style="border-right:1px solid black; display: inline-block; float:right; padding:15px;">
+          <div id="searcher-containers" style="border-right:1px solid black; float:right; padding:15px;">
 
             <div id="searcher-container" style="float:right; margin-top:5px;">
                   <form action=""></form>
