@@ -280,7 +280,7 @@
       }
     }
 
-    @media SCREEN and (max-width: 480px) {
+    @media SCREEN and (max-width: 768px) {
       #searcher-containers, .container {
         padding: 0;
       }
@@ -290,10 +290,16 @@
         right: 2px;
       }
     }
-    @media SCREEN and (min-width: 481px) {
+    @media SCREEN and (min-width: 768px) {
       #searcher-2-btn::after {
         content: " (with autocomplete)";
       }
+    }
+    #searcher-btn, #searcher-2-btn {
+      margin-left: -5px;
+    }
+    #searcher, #searcher-2 {
+      margin-left: 10px;
     }
     </style>
 
