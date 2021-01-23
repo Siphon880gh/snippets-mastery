@@ -270,7 +270,7 @@
 
     <style>
     @media print {
-      #searcher-container, #help-links, legend, fieldset {
+      #searcher-containers, #help-links, legend, fieldset {
         display: none;
       }
       #printer-title::after {
@@ -340,16 +340,60 @@
 
           <div style="width:1px; height:10px; clear:both;"></div>
           
-          <div id="searcher-container" style="float:right; margin-top:5px;">
-                <form action=""></form>
-                <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
-                <input id="searcher" onkeyup="checkSearcher(event)" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
-                <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
-                <span>&nbsp;</span>
-                <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
-                <button onclick="toggleAllExpand();" style="cursor: pointer; border:0;"><span class="fa fa-eye" style="cursor: pointer;"> Toggle All</button>
-                <button onclick="window.print();" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
-          </div>
+          <div id="searcher-containers" style="border-right:1px solid black; display: inline-block; float:right; padding:15px;">
+
+            <div id="searcher-container" style="float:right; margin-top:5px;">
+                  <form action=""></form>
+                  <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
+                  <input id="searcher" onkeyup="checkSearcher(event)" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
+                  <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
+                  <span>&nbsp;</span>
+                  <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
+                  <button onclick="toggleAllExpand();" style="cursor: pointer; border:0;"><span class="fa fa-eye" style="cursor: pointer;"> Toggle All</button>
+                  <button onclick="window.print();" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
+            </div>
+            <script>
+            function doSearcher2(searchText) {
+              if(searchText.length===0) {
+                alert("Error: Nothing typed!");
+                return false;
+              }
+              scrollToText(searchText);
+            }
+
+            $(()=>{
+
+              function recurseAllFolderObjects(folders) {
+
+                let folderFlattenedNames = [];
+
+                // recurseFolderObjects
+                let rFO = (nestedObject) => {
+                      if (nestedObject.next.length)
+                          nestedObject.next.forEach(rFO);
+                          folderFlattenedNames.push(nestedObject.current);    
+                }
+                folders.forEach(rFO);
+
+                return folderFlattenedNames;
+              }
+
+              const folderFlattenedNames = recurseAllFolderObjects(folders)
+
+              $( "#searcher-2" ).autocomplete({
+                source: folderFlattenedNames
+              });
+            })
+            </script>
+            <div id="searcher-container-2" style="float:right; margin-top:5px;">
+                  <form action=""></form>
+                  <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
+                  <input id="searcher-2" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
+                  <button id="searcher-2-btn" onclick="doSearcher2($('#searcher-2').val());" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find topic (with autocompletion)</button>
+            </div>
+            <div style="clear:both;"></div>
+          </div> <!-- #searcher-containers -->
+
           <div id="printer-title"></div>
           <br style="clear:both;"/><br/>
 
