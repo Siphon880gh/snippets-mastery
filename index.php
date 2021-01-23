@@ -279,6 +279,22 @@
         font-size: 2rem;
       }
     }
+
+    @media SCREEN and (max-width: 480px) {
+      #searcher-containers, .container {
+        padding: 0;
+      }
+      .mobile-flush-top {
+        position:absolute;
+        top:2px;
+        right: 2px;
+      }
+    }
+    @media SCREEN and (min-width: 481px) {
+      #searcher-2-btn::after {
+        content: " (with autocomplete)";
+      }
+    }
     </style>
 
     <script src="assets/js/app.js?v=<?php echo time(); ?>"></script>
@@ -349,9 +365,11 @@
                   <input id="searcher" onkeyup="checkSearcherSubmit(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
                   <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
                   <span>&nbsp;</span>
-                  <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
-                  <button onclick="toggleAllExpand();" style="cursor: pointer; border:0;"><span class="fa fa-eye" style="cursor: pointer;"> Toggle All</button>
-                  <button onclick="window.print();" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
+                  <span class="mobile-flush-top">
+                    <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
+                    <button onclick="toggleAllExpand();" style="cursor: pointer; border:0;"><span class="fa fa-eye" style="cursor: pointer;"> Toggle All</button>
+                    <button onclick="window.print();" style="cursor: pointer; border:0;"><span class="fa fa-print" style="cursor: pointer;"> Print</button>
+                  </span>
             </div>
             <script>
             function doSearcher2(searchText) {
@@ -390,7 +408,7 @@
                   <form action=""></form>
                   <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
                   <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
-                  <button id="searcher-2-btn" onclick="doSearcher2($('#searcher-2').val());" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find topic (with autocompletion)</button>
+                  <button id="searcher-2-btn" onclick="doSearcher2($('#searcher-2').val());" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find topic</button>
             </div>
             <div style="clear:both;"></div>
           </div> <!-- #searcher-containers -->
