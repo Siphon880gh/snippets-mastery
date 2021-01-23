@@ -329,6 +329,16 @@
     })
     </script>
 
+  <style>
+    /** Stop ios making buttons rounded **/
+    .override-ios-button-style {
+        -webkit-appearance: none !important;
+        -webkit-border-radius: 0 !important;
+        border-radius: 0 !important;
+        height: 2.5rem;
+        /* color: red; */
+    }
+    </style>
 </head>
     <body>
 
@@ -392,7 +402,7 @@
                   <form action=""></form>
                   <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
                   <input id="searcher" onkeyup="checkSearcherSubmit(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
-                  <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
+                  <button id="searcher-btn" class="override-ios-button-style" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
                   <span>&nbsp;</span>
                   <span class="mobile-flush-top">
                     <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
@@ -437,7 +447,7 @@
                   <form action=""></form>
                   <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
                   <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
-                  <button id="searcher-2-btn" onclick="doSearcher2($('#searcher-2').val());" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find topic</button>
+                  <button id="searcher-2-btn" class="override-ios-button-style" onclick="doSearcher2($('#searcher-2').val());" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find topic</button>
             </div>
             <div style="clear:both;"></div>
           </div> <!-- #searcher-containers -->
