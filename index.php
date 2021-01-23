@@ -321,6 +321,14 @@
     <script src="assets/js/app.js?v=<?php echo time(); ?>"></script>
     <script src="assets/js/multistates.js?v=<?php echo time(); ?>"></script>
 
+    <script>
+    $(()=>{
+      $(".fa-book-reader").on("click", ()=>{
+        document.querySelector("#summary-inner").scrollIntoView();
+      });
+    })
+    </script>
+
 </head>
     <body>
 
