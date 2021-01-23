@@ -164,17 +164,18 @@
 
     // If user erases content in input, dynamically erase any present search results
     // If user presses enter on input, then click the search
-    function checkSearcher(event) {
+    function checkSearcherSubmit(event, $btn) {
       $searcher = $("#searcher");
       if($searcher.val().length===0)
         toggleSearchResults(false);
 
       if(event.keyCode === 13)
         {
+          $(".ui-autocomplete").hide();
           event.preventDefault();
-          $("#searcher-btn").click();
+          $btn.click();
         }
-    } // checkSearcher
+    } // checkSearcherSubmit
 
     function doSearcher() {
       $searcher = $("#searcher");
@@ -345,7 +346,7 @@
             <div id="searcher-container" style="float:right; margin-top:5px;">
                   <form action=""></form>
                   <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
-                  <input id="searcher" onkeyup="checkSearcher(event)" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
+                  <input id="searcher" onkeyup="checkSearcherSubmit(event, $('#searcher-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
                   <button id="searcher-btn" onclick="doSearcher()" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find text</button>
                   <span>&nbsp;</span>
                   <button onclick="if(confirm('Clear Find text field?')) clearSearcher();" style="cursor: pointer; border:0;"><span class="fa fa-eraser" style="cursor: pointer;"> Clear</button>
@@ -388,7 +389,7 @@
             <div id="searcher-container-2" style="float:right; margin-top:5px;">
                   <form action=""></form>
                   <!-- <label for="alpha-strip" style="font-weight:400;">Text:</label> -->
-                  <input id="searcher-2" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
+                  <input id="searcher-2" onkeyup="checkSearcherSubmit(event, $('#searcher-2-btn'))" class="toolbar" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="width:180px;">
                   <button id="searcher-2-btn" onclick="doSearcher2($('#searcher-2').val());" style="cursor: pointer;"><span class="fa fa-search" style="cursor: pointer;"></span> Find topic (with autocompletion)</button>
             </div>
             <div style="clear:both;"></div>
